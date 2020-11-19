@@ -1,65 +1,54 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Ariane from './components/Ariane'
+import Assets from './components/phases/Assets'
+import BusinessValue from './components/phases/BusinessValue'
+import Increments from './components/phases/Increments'
+import JiraExport from './components/phases/JiraExport'
+import KPIs from './components/phases/KPIs'
+import Need from './components/phases/Need'
+import React from 'react'
+import Solution from './components/phases/Solution'
+import styles from './styles.module.scss'
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+export default class Main extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentPhase: 'need',
+      recaps: [],
+    }
+  }
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+  handleChangePhase = (phase) => {
+    this.setState({ currentPhase: phase })
+  }
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+  handleChangeRecap = (phase, recap) => {
+    let recaps = this.state.recaps
+    recaps[phase] = recap
+    this.setState({ recaps: recaps })
+  }
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+  render() {
+    return (
+      <div>
+        <div className={styles.UsTitle}>
+          <h1>User story :</h1>
+          <input type="text" id="user_story_title" name="user_story[title]" placeholder="Titre de la US"></input>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+        <div className={styles.Main}>
+          <Ariane onChangePhase={(phase) => { this.handleChangePhase(phase) }} recaps={this.state.recaps} />
+    
+          <div className="phases" id="phase-items">
+            <Need current={this.state.currentPhase == 'need'} onTextChangedWithRecap={(recap) => this.handleChangeRecap('need', recap)} />
+            <Solution current={this.state.currentPhase == 'solution'} onTextChangedWithRecap={(recap) => this.handleChangeRecap('solution', recap)} />
+            <BusinessValue current={this.state.currentPhase == 'value'} onTextChangedWithRecap={(recap) => this.handleChangeRecap('value', recap)} />
+            <KPIs current={this.state.currentPhase == 'kpis'} onTextChangedWithRecap={(recap) => this.handleChangeRecap('kpis', recap)} />
+            <Assets current={this.state.currentPhase == 'assets'} onTextChangedWithRecap={(recap) => this.handleChangeRecap('assets', recap)} />
+            <Increments current={this.state.currentPhase == 'increments'} onTextChangedWithRecap={(recap) => this.handleChangeRecap('increments', recap)} />
+            <JiraExport current={this.state.currentPhase == 'jira'} />
+          </div>
+        </div>
+      </div>      
+    )
+  }
 }

@@ -1,0 +1,31 @@
+// Colors
+
+$color-main: #c91dc9;
+$color-main-light: #d64fd6;
+$color-main-lighter: #e28fe2;
+
+$color-secondary-dark: #320d8a;
+$color-secondary: #4c25aa;
+$color-secondary-light: #6f4dc0;
+$color-secondary-lighter: #9278cf;
+
+$color-black: #000000;
+$color-grey-darker: #333333;
+$color-grey-dark: #666666;
+$color-grey: #888888;
+$color-grey-light: #aaaaaa;
+$color-grey-lighter: #eeeeee;
+$color-white: #ffffff;
+
+// Color bindings
+
+$ariane-highlight-color: $color-main;
+
+$button-background-color: $color-grey-lighter;
+$button-border-color: $color-grey;
+
+$button-increment-background-color: $color-secondary;
+$button-increment-border-color: $color-secondary-dark;
+$button-increment-text-color: $color-white;
+
+$increment-color: $color-secondary;

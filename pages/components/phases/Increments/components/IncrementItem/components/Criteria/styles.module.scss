@@ -1,0 +1,26 @@
+.Criteria {
+  border: 2px solid #888888;
+  margin-bottom: 0.5em;
+}
+
+.title {
+  background-color: #cccccc;
+  border-bottom: 2px solid #888888;
+  padding: 0.25em;
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    border: 0;
+    font-size: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0.25em 0.5em;
+    background-color: #eeeeee;
+    width: 50%;
+  }
+}
+
+.content {
+  padding: 1em;
+  background-color: #eeeeee;
+}
