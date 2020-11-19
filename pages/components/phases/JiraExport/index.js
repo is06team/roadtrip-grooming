@@ -7,7 +7,7 @@ const incrementTypes = {
   'tracking': 'tracking',
   'gdpr': 'GDPR',
   'ui': 'UI',
-  'releas': 'Release',
+  'release': 'Release',
 }
 
 export default class JiraExport extends React.Component {
@@ -49,6 +49,7 @@ export default class JiraExport extends React.Component {
         text += this.getIncrementDiet(increment)
         text += this.getIncrementEstimation(increment)
         text += this.getCriterias(increment)
+        text += this.getIncrementNotes(increment)
         text += '\n\n'
       }
     }
@@ -83,9 +84,10 @@ export default class JiraExport extends React.Component {
   }
 
   getCriterias = (increment) => {
-    let text = '\n\nh2. Critères d\'acceptation'
+    let text = ''
     const criterias = increment.getElementsByClassName('user_story_increment_criteria_item')
-    if (criterias !== null) {
+    if (criterias !== null && criterias.length > 0) {
+      text += '\n\nh2. Critères d\'acceptation'
       for (let i = 0; i < criterias.length; i++) {
         const criteria = criterias[i]
         text += '\n\n{panel:title=' + this.getCriteriaTitle(criteria) + '}'
@@ -110,6 +112,16 @@ export default class JiraExport extends React.Component {
       return texts[0].value
     }
     return ''
+  }
+
+  getIncrementNotes = (increment) => {
+    let text = ''
+    const notes = increment.getElementsByClassName('user_story_increment_notes')
+    if (notes !== null && typeof(notes[0]) !== 'undefined') {
+      text += '\nh2. Notes\n'
+      text += '\n' + notes[0].value
+    }
+    return text
   }
 
   getCode = () => {

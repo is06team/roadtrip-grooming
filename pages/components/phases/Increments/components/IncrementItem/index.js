@@ -107,7 +107,7 @@ export default class IncrementItem extends React.Component {
       return (
         <div className={styles.notes}>
           <h3>Notes</h3>
-          <textarea placeholder="Éléments à verifier pendant les tests"></textarea>
+          <textarea className="user_story_increment_notes" placeholder="Éléments à verifier pendant les tests"></textarea>
         </div>
       )
     }
