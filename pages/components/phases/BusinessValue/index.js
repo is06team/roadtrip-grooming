@@ -13,7 +13,7 @@ export default class BusinessValue extends React.Component {
     let items = [
       <option key="value_item_0">- Choisissez</option>
     ]
-    for (let i = 5; i < 100; i += 5) {
+    for (let i = 5; i <= 100; i += 5) {
       items.push(<option key={'value_item_' + i} value={i}>{i}</option>)
     }
     return items

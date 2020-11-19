@@ -13,7 +13,7 @@ export default class Main extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentPhase: 'need',
+      currentPhase: null,
       recaps: [],
     }
   }

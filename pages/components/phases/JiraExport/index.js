@@ -61,12 +61,14 @@ export default class JiraExport extends React.Component {
     const dietI = increment.getElementsByClassName('user_story_increment_diet_i')
     const dietE = increment.getElementsByClassName('user_story_increment_diet_e')
     const dietT = increment.getElementsByClassName('user_story_increment_diet_t')
+    
+
     if (dietD !== null && dietI !== null && dietE !== null && dietT !== null) {
       text += '\n'
-      text += (dietD[0].checked ? 'D' : '')
-      text += (dietI[0].checked ? 'I' : '')
-      text += (dietE[0].checked ? 'E' : '')
-      text += (dietT[0].checked ? 'T' : '')
+      text += (typeof(dietD[0]) !== 'undefined' && dietD[0].checked ? 'D' : '')
+      text += (typeof(dietI[0]) !== 'undefined' &&dietI[0].checked ? 'I' : '')
+      text += (typeof(dietE[0]) !== 'undefined' &&dietE[0].checked ? 'E' : '')
+      text += (typeof(dietT[0]) !== 'undefined' &&dietT[0].checked ? 'T' : '')
     }
     return text
   }
@@ -74,7 +76,7 @@ export default class JiraExport extends React.Component {
   getIncrementEstimation = (increment) => {
     let text = ''
     const estimations = increment.getElementsByClassName('user_story_increment_estimation')
-    if (estimations !== null) {
+    if (estimations !== null && typeof(estimations[0]) !== 'undefined') {
       text += '\nEstimation : ' + estimations[0].value
     }
     return text
