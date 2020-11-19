@@ -34,8 +34,9 @@ export default class IncrementItem extends React.Component {
     this.setState({
       criterias: criterias,
       nextCriteriaId: this.state.nextCriteriaId + 1
+    }, () => {
+      this.props.onIncrementUpdated(this.props.id, this.state)
     })
-    this.props.onIncrementUpdated(this.props.id, this.state)
   }
 
   updateCriteria = (id, field, text) => {
@@ -46,8 +47,11 @@ export default class IncrementItem extends React.Component {
       }
       criterias.push(criteria)
     }
-    this.setState({ criterias: criterias })
-    this.props.onIncrementUpdated(this.props.id, this.state)
+    this.setState({ 
+      criterias: criterias
+    }, () => {
+      this.props.onIncrementUpdated(this.props.id, this.state)
+    })
   }
 
   deleteCriteria = (id) => {
@@ -57,8 +61,11 @@ export default class IncrementItem extends React.Component {
         criterias.push(criteria)
       }
     }
-    this.setState({ criterias: criterias })
-    this.props.onIncrementUpdated(this.props.id, this.state)
+    this.setState({
+      criterias: criterias
+    }, () => {
+      this.props.onIncrementUpdated(this.props.id, this.state)
+    })
   }
 
   getCriteriaComponents = () => {
@@ -107,7 +114,10 @@ export default class IncrementItem extends React.Component {
       return (
         <div className={styles.notes}>
           <h3>Notes</h3>
-          <textarea className="user_story_increment_notes" placeholder="Éléments à verifier pendant les tests"></textarea>
+          <textarea
+            className="user_story_increment_notes"
+            placeholder="Éléments à verifier pendant les tests"
+            onBlur={() => this.handleChangeNotes(event.target.value)}></textarea>
         </div>
       )
     }
@@ -119,21 +129,48 @@ export default class IncrementItem extends React.Component {
     if (currentIncrementType && (currentIncrementType.hasEstimation || currentIncrementType.hasDiet)) {
       return (
         <div className={styles.secondary}>
-          <DIET />
-          <Estimation />
+          <DIET onValueChanged={(value) => this.handleChangeDiet(value)} />
+          <Estimation onValueChanged={(value) => this.handleChangeEstimation(value) } />
         </div>
       )
     }
     return null
   }
 
-  handleTypeChanged = (type) => {
-    this.setState({ type: type })
-    this.props.onIncrementUpdated(this.props.id, this.state)
-  }
-
   handleDelete = (id) => {
     this.props.onDeleteClicked(id)
+  }
+
+  handleChangeType = (type) => {
+    this.setState({
+      type: type,
+    }, () => {
+      this.props.onIncrementUpdated(this.props.id, this.state)
+    })
+  }
+
+  handleChangeDiet = (diet) => {
+    this.setState({
+      diet: diet,
+    }, () => {
+      this.props.onIncrementUpdated(this.props.id, this.state)
+    })
+  }
+
+  handleChangeEstimation = (estimation) => {
+    this.setState({
+      estimation: estimation,
+    }, () => {
+      this.props.onIncrementUpdated(this.props.id, this.state)
+    })
+  }
+
+  handleChangeNotes = (notes) => {
+    this.setState({
+      notes: notes,
+    }, () => {
+      this.props.onIncrementUpdated(this.props.id, this.state)
+    })
   }
 
   render() {
@@ -143,7 +180,7 @@ export default class IncrementItem extends React.Component {
           <div className={styles.title}>
             <h2>
               <span>{this.props.title}</span>
-              <select className="title user_story_increment_type" name="type" onChange={() => { this.handleTypeChanged(event.target.value) }}>
+              <select className="title user_story_increment_type" name="type" onChange={() => { this.handleChangeType(event.target.value) }}>
                 <option value="none">- Choisissez le type</option>
                 <option value="flow">Parcours</option>
                 <option value="tracking">Tracking</option>

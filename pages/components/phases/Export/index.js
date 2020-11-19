@@ -10,9 +10,12 @@ const incrementTypes = {
   'release': 'Release',
 }
 
-export default class JiraExport extends React.Component {
+export default class Export extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      time: 0
+    }
   }
 
   getElementById = (id) => {
@@ -66,10 +69,10 @@ export default class JiraExport extends React.Component {
 
     if (dietD !== null && dietI !== null && dietE !== null && dietT !== null) {
       text += '\n'
-      text += (typeof(dietD[0]) !== 'undefined' && dietD[0].checked ? 'D' : '')
-      text += (typeof(dietI[0]) !== 'undefined' &&dietI[0].checked ? 'I' : '')
-      text += (typeof(dietE[0]) !== 'undefined' &&dietE[0].checked ? 'E' : '')
-      text += (typeof(dietT[0]) !== 'undefined' &&dietT[0].checked ? 'T' : '')
+      text += (typeof(dietD[0]) !== 'undefined' && dietD[0].checked ? 'D' : '-')
+      text += (typeof(dietI[0]) !== 'undefined' &&dietI[0].checked ? 'I' : '-')
+      text += (typeof(dietE[0]) !== 'undefined' &&dietE[0].checked ? 'E' : '-')
+      text += (typeof(dietT[0]) !== 'undefined' &&dietT[0].checked ? 'T' : '-')
     }
     return text
   }
@@ -118,7 +121,7 @@ export default class JiraExport extends React.Component {
     let text = ''
     const notes = increment.getElementsByClassName('user_story_increment_notes')
     if (notes !== null && typeof(notes[0]) !== 'undefined') {
-      text += '\nh2. Notes\n'
+      text += '\n\nh2. Notes\n'
       text += '\n' + notes[0].value
     }
     return text
@@ -147,15 +150,36 @@ export default class JiraExport extends React.Component {
     return text
   }
 
+  getJsonExport = () => {
+    return JSON.stringify(this.props.exportData, null, 4)
+  }
+
   render() {
     return (
       <div style={{display: (this.props.current == true ? 'block' : 'none') }}>
-        <div>
-          <h1>Export JIRA</h1>
+        <h1>Exporter / Importer</h1>
+        <div className={styles.content}>
+          <div className={styles.jira}>
+            <h2>JIRA</h2>
+            <p>Vous pouvez copier le code ci-dessous pour le coller dans des tickets JIRA.
+              À terme, une fonction de synchronisation permettra de créer automatiquement les tickets.
+            </p>
+            <pre className={styles.code}>
+              {this.getCode()}
+            </pre>
+          </div>
+          <div className={styles.json}>
+            <h2>Export JSON</h2>
+            <p>La US n'est pas terminée ? Exportez au format JSON pour la réimporter dans cet outil dans un futur grooming et la terminer.</p>
+            <pre className={styles.code}>
+              {this.getJsonExport()}
+            </pre>
 
-          <pre className={styles.code}>
-            {this.getCode()}
-          </pre>
+            <h2>Importer JSON</h2>
+            <div>
+              <input type="file"></input>
+            </div>
+          </div>
         </div>  
       </div>
     )

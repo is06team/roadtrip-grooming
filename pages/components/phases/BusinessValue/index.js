@@ -7,6 +7,7 @@ export default class BusinessValue extends React.Component {
 
   handleChange = (value) => {
     this.props.onTextChangedWithRecap(value)
+    this.props.onExportDataChanged(parseInt(value))
   }
 
   getValueItems = () => {

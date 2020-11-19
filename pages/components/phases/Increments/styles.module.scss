@@ -1,11 +1,9 @@
 @import '../../../../styles/_variables.scss';
 
-.Increments {
-  & > button {
-    background-color: $button-increment-background-color;
-    color: $button-increment-text-color;
-    border-color: $button-increment-border-color;
-  }
+.incrementButton {
+  background-color: $button-increment-background-color;
+  color: $button-increment-text-color;
+  border-color: $button-increment-border-color;
 }
 
 .list {

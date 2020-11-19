@@ -7,6 +7,7 @@ export default class Solution extends React.Component {
 
   handleBlur = (text) => {
     this.props.onTextChangedWithRecap(text)
+    this.props.onExportDataChanged(text)
   }
 
   render() {

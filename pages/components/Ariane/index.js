@@ -9,7 +9,7 @@ const items = [
   { name: 'kpis', title: 'KPIs de succès' },
   { name: 'assets', title: 'Assets' },
   { name: 'increments', title: 'Incréments' },
-  { name: 'jira', title: 'Export JIRA' },
+  { name: 'export', title: 'Exporter / Importer' },
 ]
 
 export default class Ariane extends React.Component {

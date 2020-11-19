@@ -11,38 +11,18 @@ export default class Increments extends React.Component {
     }
   }
 
-  getTextForRecap = () => {
-    /*let text = '<ul>'
-    for (const increment of this.state.increments) {
-      text += '<li>Incrément ' + increment.type
-      if (increment.diet || increment.estimation) {
-        text += '<br />DIET - Estimation : 8'
-      }
-    }
-    text += '</ul>'*/
-    const text = ''
-    return text
-  }
-
   addIncrement = () => {
     let increments = this.state.increments
     increments.push({
       id: 'id_' + this.state.nextIncrementId,
-      data: {
-        nextCriteriaId: 0,
-        criterias: [],
-        diet: '',
-        estimation: 0,
-        title: '',
-        type: 'none',
-      },
+      data: {},
     })
     this.setState({
       increments: increments,
       nextIncrementId: this.state.nextIncrementId + 1
+    }, () => {
+      this.props.onExportDataChanged(this.state)
     })
-
-    this.props.onTextChangedWithRecap(this.getTextForRecap())
   }
 
   updateIncrement = (id, updatedIncrement) => {
@@ -53,9 +33,11 @@ export default class Increments extends React.Component {
       }
       increments.push(increment)
     }
-    this.setState({ increments: increments })
-
-    this.props.onTextChangedWithRecap(this.getTextForRecap())
+    this.setState({
+      increments: increments
+    }, () => {
+      this.props.onExportDataChanged(this.state)
+    })
   }
 
   deleteIncrement = (id) => {
@@ -65,9 +47,11 @@ export default class Increments extends React.Component {
         increments.push(increment)
       }
     }
-    this.setState({ increments: increments })
-
-    this.props.onTextChangedWithRecap(this.getTextForRecap())
+    this.setState({
+      increments: increments
+    }, () => {
+      this.props.onExportDataChanged(this.state)
+    })
   }
 
   getIncrementComponents = () => {
@@ -85,7 +69,8 @@ export default class Increments extends React.Component {
           }}
           onDeleteClicked={(index) => {
             this.deleteIncrement(index)
-          }} />
+          }}
+          />
       )
     }
     return components
@@ -95,11 +80,41 @@ export default class Increments extends React.Component {
     return (
       <div style={{display: (this.props.current == true ? 'block' : 'none') }}>
         <div className={styles.Increments}>
-          <h1>Incréments de la US</h1>
-          <div className={styles.list} id="user_story_increments">
-            {this.getIncrementComponents()}
-          </div>      
-          <button onClick={() => this.addIncrement()}>Ajouter un incrément dans cette US</button>
+          <div className="phase-container">
+            <div className="phase-main">
+              <h1>Incréments de la US</h1>
+              <div className={styles.list} id="user_story_increments">
+                {this.getIncrementComponents()}
+              </div>      
+              <button className={styles.incrementButton} onClick={() => this.addIncrement()}>Ajouter un incrément dans cette US</button>
+            </div>
+            <div className="phase-guides">
+              <h3>Les incréments</h3>
+              <p>Les incréments sont des "sous-US" qui nous permettent de découper fonctionnellement
+                et d'améliorer notre fiabilité de delivery au cours du sprint.
+              </p>
+
+              <h3>Comment découper ?</h3>
+              <p>On peut tout à fait intégrer l'intégration de maquettes, le tracking et la gestion
+                GDPR dans le même incrément. Tout comme il est possible de créer autant d'incréments
+                que nécessaire.
+              </p>
+
+              <h3>Les critères</h3>
+              <p>Les critères d'acceptation permettent de vérifier que la fonctionnalité correspond
+                à la <strong>solution fonctionnelle</strong> choisie.
+              </p>
+
+              <h3>DIET</h3>
+              <p>Pour chaque incrément (lorsqu'il est éligible), on peut définir si il est :</p>
+              <ul>
+                <li><strong>D</strong>écoupable : est-ce que l'incrément n'est plus découpable davantage ?</li>
+                <li><strong>I</strong>ndépendant : d'un autre incrément, d'une autre US ou d'assets</li>
+                <li><strong>E</strong>stimable : si l'équipe est en mesure d'estimer l'incrément</li>
+                <li><strong>T</strong>estable : si tous les critères ont été écrits pour cet incrément</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     )

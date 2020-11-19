@@ -10,7 +10,11 @@ export default class Need extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      need: [],
+      need: {
+        as: '',
+        want: '',
+        to: '',
+      },
     }
   }
 
@@ -26,6 +30,7 @@ export default class Need extends React.Component {
     }
 
     this.props.onTextChangedWithRecap(text)
+    this.props.onExportDataChanged(this.state.need)
   }
 
   render() {
