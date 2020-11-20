@@ -5,7 +5,7 @@ export default class KPIs extends React.Component {
     super(props)
   }
 
-  handleBlur = (text) => {
+  handleChange = (text) => {
     this.props.onTextChangedWithRecap(text)
     this.props.onExportDataChanged(text)
   }
@@ -17,12 +17,15 @@ export default class KPIs extends React.Component {
           <div className="phase-main">
             <h1>KPI de succès</h1>
             <fieldset>
-              <textarea name="kpi" onBlur={() => this.handleBlur(event.target.value)}></textarea>
+              <textarea name="kpi" value={this.props.initialData} onChange={(e) => this.handleChange(e.target.value)}></textarea>
             </fieldset>
           </div>
           <div className="phase-guides">
-            <p>Objectif :<br />Justifier l'utilité business de la fonctionnalité.</p>
-            <p>Astuce :<br />Se poser la question "On aura raison de réaliser cette fonctionnalité si..."</p>
+            <h3>Objectif</h3>
+            <p>Justifier l'utilité business de la fonctionnalité.</p>
+            
+            <h3>Astuce</h3>
+            <p>Se poser la question "On aura raison de réaliser cette fonctionnalité si..."</p>
           </div>
         </div>
       </div>

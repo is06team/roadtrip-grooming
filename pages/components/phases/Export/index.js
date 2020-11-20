@@ -1,4 +1,5 @@
 import React from 'react'
+import { saveAs } from 'file-saver'
 import styles from './styles.module.scss'
 
 const incrementTypes = {
@@ -154,6 +155,29 @@ export default class Export extends React.Component {
     return JSON.stringify(this.props.exportData, null, 4)
   }
 
+  downloadJsonExport = () => {
+    const blob = new Blob([this.getJsonExport()], { type: 'application/json' })
+    saveAs(blob, 'UserStory.json');
+  }
+
+  /**
+   * Import the file from a given file input event
+   * @param {React.ChangeEvent<HTMLInputElement>} event 
+   */
+  importFile = (file) => {
+    if (file) {
+      const fileReader = new FileReader()
+      fileReader.onloadend = () => {
+        try {
+          this.props.onDataImported(JSON.parse(fileReader.result))
+        } catch (e) {
+          alert('Fichier invalide')
+        }
+      }
+      fileReader.readAsText(file)
+    }
+  }
+
   render() {
     return (
       <div style={{display: (this.props.current == true ? 'block' : 'none') }}>
@@ -174,10 +198,16 @@ export default class Export extends React.Component {
             <pre className={styles.code}>
               {this.getJsonExport()}
             </pre>
+            <button onClick={() => this.downloadJsonExport()}>Télécharger</button>
 
             <h2>Importer JSON</h2>
             <div>
-              <input type="file"></input>
+              <input
+                type="file"
+                accept="application/json"
+                ref="upload"
+                name="importJsonFile"
+                onChange={(e) => this.importFile(e.target.files[0])} />
             </div>
           </div>
         </div>  

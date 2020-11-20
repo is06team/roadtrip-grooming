@@ -64,6 +64,10 @@ export default class Increments extends React.Component {
           key={'increment_' + incrementIndex}
           title="Increment"
           type={increment.type}
+          criterias={increment.criterias}
+          estimation={increment.estimation}
+          diet={increment.diet}
+          nextCriteriaId={increment.nextCriteriaId}
           onIncrementUpdated={(id, increment) => {
             this.updateIncrement(id, increment)
           }}
@@ -85,7 +89,7 @@ export default class Increments extends React.Component {
               <h1>Incréments de la US</h1>
               <div className={styles.list} id="user_story_increments">
                 {this.getIncrementComponents()}
-              </div>      
+              </div>
               <button className={styles.incrementButton} onClick={() => this.addIncrement()}>Ajouter un incrément dans cette US</button>
             </div>
             <div className="phase-guides">

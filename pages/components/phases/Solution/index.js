@@ -5,7 +5,7 @@ export default class Solution extends React.Component {
     super(props)
   }
 
-  handleBlur = (text) => {
+  handleChange = (text) => {
     this.props.onTextChangedWithRecap(text)
     this.props.onExportDataChanged(text)
   }
@@ -21,18 +21,20 @@ export default class Solution extends React.Component {
             </h1>
   
             <fieldset>
-              <textarea name="solution" id="user_story_solution" onBlur={() => this.handleBlur(event.target.value)}></textarea>
+              <textarea
+                name="solution"
+                value={this.props.initialData}
+                id="user_story_solution"
+                onChange={(e) => this.handleChange(e.target.value)}></textarea>
             </fieldset>
           </div>
           <div className="phase-guides">
-            <p className="goal">
-              Objectif :<br />
-              Se mettre d'accord sur la solution et la challenger
-            </p>
+            <h3>Objectif</h3>
+            <p>Se mettre d'accord sur la solution et la challenger</p>
   
-            <p className="advice">
-              Exemple : <br />
-              <strong>"Formulaire de contact qui envoie un mail"</strong>
+            <h3>Exemple</h3>
+            <p>
+              "Formulaire de contact qui envoie un mail"
             </p>
           </div>
         </div>

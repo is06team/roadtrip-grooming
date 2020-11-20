@@ -18,7 +18,13 @@ export default class Need extends React.Component {
     }
   }
 
-  handleBlur = (id) => {
+  /**
+   * Called when a Need text field has been changed
+   * Updates the recap in Ariane component
+   * Notifies the export data changed prop of the Main component
+   * @param {string} id 
+   */
+  handleChange = (id) => {
     const el = document.getElementById('user_story_need_' + id)
     let need = this.state.need
     need[id] = el.value
@@ -43,34 +49,33 @@ export default class Need extends React.Component {
             <fieldset>
               <div className="field">
                 <label htmlFor="user_story_need_as">En tant que</label>
-                <input type="text" id="user_story_need_as" name="user_need[as]" placeholder="Persona" onBlur={() => this.handleBlur('as')} />
+                <input type="text" value={this.props.initialData.as} id="user_story_need_as" name="user_need[as]" placeholder="Persona" onChange={() => this.handleChange('as')} />
                 <span className="field-hint">(Qui)</span>
               </div>
               <div className="field">
                 <label htmlFor="user_story_need_want">Je souhaite</label>
-                <input type="text" id="user_story_need_want" name="user_need[want]" placeholder="Ceci" onBlur={() => this.handleBlur('want')} />
+                <input type="text" value={this.props.initialData.want} id="user_story_need_want" name="user_need[want]" placeholder="Ceci" onChange={() => this.handleChange('want')} />
                 <span className="field-hint">(Quoi)</span>
               </div>
               <div className="field">
                 <label htmlFor="user_story_need_to">Afin de</label>
-                <input type="text" id="user_story_need_to" name="user_need[to]" placeholder="Finalité" onBlur={() => this.handleBlur('to')} />
+                <input type="text" value={this.props.initialData.to} id="user_story_need_to" name="user_need[to]" placeholder="Finalité" onChange={() => this.handleChange('to')} />
                 <span className="field-hint">(Pourquoi)</span>
               </div>
             </fieldset>
           </div>
           <div className="phase-guides">
+            <h3>Déroulement</h3>
             <p>Le PO explique le besoin de l'utilisateur.</p>
-            <p>
-              Objectifs :
-            </p>
+            
+            <h3>Objectifs</h3>
             <ul>
               <li>Cerner le vrai besoin univoque de l'utilisateur (le quoi et le qui),</li>
               <li>Donner du sens à ce qu'on fait (le pourquoi).</li>
             </ul>
-            <p>
-              Conseil :<br />
-              l'équipe essaye d'écrire un besoin le plus petit possible fonctionnellement.
-            </p>
+            
+            <h3>Conseil</h3>
+            <p>L'équipe essaye d'écrire un besoin le plus petit possible fonctionnellement.</p>
           </div>
         </div>
       </div>

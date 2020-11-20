@@ -5,7 +5,7 @@ export default class Assets extends React.Component {
     super(props)
   }
 
-  handleBlur = (text) => {
+  handleChange = (text) => {
     this.props.onTextChangedWithRecap(text)
     this.props.onExportDataChanged(text)
   }
@@ -16,11 +16,16 @@ export default class Assets extends React.Component {
         <div className="phase-container">
           <div className="phase-main">
             <h1>Assets<br />
-              <small>A-t-on tous les assets pour réaliser cette fonctionnalité ?</small></h1>
+              <small>A-t-on tous les assets pour réaliser cette fonctionnalité ?</small>
+            </h1>
 
             <h2>Remarques (facultatif)</h2>
             <fieldset>
-              <textarea name="assets" id="user_story_assets" onBlur={() => this.handleBlur(event.target.value)}></textarea>
+              <textarea
+                name="assets"
+                value={this.props.initialData}
+                id="user_story_assets"
+                onChange={(e) => this.handleChange(e.target.value)}></textarea>
             </fieldset>
           </div>
           <div className="phase-guides">

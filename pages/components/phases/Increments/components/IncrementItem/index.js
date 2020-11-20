@@ -24,6 +24,16 @@ export default class IncrementItem extends React.Component {
     }
   }
 
+  componentDidMount = () => {
+    this.setState({
+      type: this.props.type,
+      nextCriteriaId: this.props.nextCriteriaId,
+      criterias: this.props.criterias,
+      diet: this.props.diet,
+      estimation: this.props.estimation,
+    })
+  }
+
   addCriteria = () => {
     let criterias = this.state.criterias
     criterias.push({
@@ -137,6 +147,28 @@ export default class IncrementItem extends React.Component {
     return null
   }
 
+  /**
+   * Return the selector component with current increment type selected (if already defined)
+   * @param {String} currentType
+   */
+  getSelector = (currentType) => {
+    return (
+      <select className="title user_story_increment_type" name="type" onChange={(e) => { this.handleChangeType(e.target.value) }}>
+        <option value="none">- Choisissez le type</option>
+        <option value="flow" selected={currentType === 'flow' ? 'selected' : ''}>Parcours</option>
+        <option value="tracking" selected={currentType === 'tracking' ? 'selected' : ''}>Tracking</option>
+        <option value="gdpr" selected={currentType === 'gdpr' ? 'selected' : ''}>GDPR</option>
+        <option value="ui" selected={currentType === 'ui' ? 'selected' : ''}>UI</option>
+        <option value="release" selected={currentType === 'release' ? 'selected' : ''}>Release</option>
+      </select>
+    )
+  }
+
+  /**
+   * Called when the user wants to delete the increment
+   * Calls the prop function onDeleteClicked
+   * @param {Number} id 
+   */
   handleDelete = (id) => {
     this.props.onDeleteClicked(id)
   }
@@ -180,14 +212,7 @@ export default class IncrementItem extends React.Component {
           <div className={styles.title}>
             <h2>
               <span>{this.props.title}</span>
-              <select className="title user_story_increment_type" name="type" onChange={() => { this.handleChangeType(event.target.value) }}>
-                <option value="none">- Choisissez le type</option>
-                <option value="flow">Parcours</option>
-                <option value="tracking">Tracking</option>
-                <option value="gdpr">GDPR</option>
-                <option value="ui">UI</option>
-                <option value="release">Release</option>
-              </select>
+              {this.getSelector(this.props.type)}
             </h2>
             <button className="title" onClick={() => { this.handleDelete(this.props.id) }}>Supprimer</button>
           </div>
