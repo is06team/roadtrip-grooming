@@ -5,9 +5,9 @@ const JiraExport = ({ data }) => {
     return (
       <div className={styles.increment}>
         <h3>{data.title} : {increment.type} (Ticket "Story increment")</h3>
-        <div><strong>Estimation</strong> : {increment.estimation}</div>
-        <div><strong>ROI</strong> : {parseInt(data.value / increment.estimation)}</div>
-        <div>{getChecklist(increment.checklist)}<br /></div>
+        {increment.estimation > 0 && (<div><strong>Estimation</strong> : {increment.estimation}</div>)}
+        {increment.estimation > 0 && (<div><strong>ROI</strong> : {parseInt(data.value / increment.estimation)}</div>)}
+        {(increment.type !== 'release') && getChecklist(increment.checklist)}
         <pre className="code">
           <div>{increment.criterias.length > 0 && getCriterias(increment.criterias)}</div>
           {increment.notes && (
@@ -33,6 +33,7 @@ const JiraExport = ({ data }) => {
         {(checklist.d && checklist.i && checklist.e && checklist.t)
           ? ' -> A placer dans "Ready for sprint"'
           : ' -> Laisser dans "Ready for grooming"'}
+        <br />
       </div>
     )
   }

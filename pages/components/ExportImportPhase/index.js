@@ -13,7 +13,17 @@ const ExportImportPhase = ({ isCurrentPhase, data, onImport }) => {
   }
 
   const importFile = (file) => {
-    onImport()
+    if (file) {
+      const fileReader = new FileReader()
+      fileReader.onloadend = () => {
+        try {
+          onImport(JSON.parse(fileReader.result))
+        } catch (e) {
+          alert('Fichier invalide')
+        }
+      }
+      fileReader.readAsText(file)
+    }
   }
 
   return (
