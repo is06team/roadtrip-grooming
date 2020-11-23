@@ -5,7 +5,7 @@ const Estimation = ({ estimation, onChange }) => {
   return (
     <div className={styles.Estimation}>
       <label>Estimation</label>
-      <select className="medium user_story_increment_estimation" value={estimation} onChange={(e) => onChange(e.target.value)}>
+      <select className="medium user_story_increment_estimation" value={estimation} onChange={(e) => onChange(parseFloat(e.target.value))}>
         <option>- Choisissez</option>
         <option>0.5</option>
         <option>1</option>

@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 
 import Ariane from './components/Ariane'
-import AssetPhase from './components/phases/Assets'
-import BusinessValuePhase from './components/phases/BusinessValuePhase'
-import IncrementPhase from './components/phases/IncrementPhase'
-import KpiPhase from './components/phases/KpiPhase'
+import AssetPhase from './components/AssetPhase'
+import BusinessValuePhase from './components/BusinessValuePhase'
+import ExportImportPhase from './components/ExportImportPhase'
+import IncrementPhase from './components/IncrementPhase'
+import KpiPhase from './components/KpiPhase'
 import NeedPhase from './components/NeedPhase'
-import SolutionPhase from './components/phases/SolutionPhase'
+import SolutionPhase from './components/SolutionPhase'
 import styles from './styles.module.scss'
 
 const Main = () => {
@@ -70,7 +71,12 @@ const Main = () => {
           <IncrementPhase
             isCurrentPhase={state.currentPhase === 'increments'}
             increments={data.increments}
-            onChange={(value) => setData({ ...data, increments: value })}
+            onChange={(value) => setData({ ...data, increments: value.increments })}
+            />
+          <ExportImportPhase
+            isCurrentPhase={state.currentPhase === 'export'}
+            data={data}
+            onImport={() => {}}
             />
         </div>
       </div>

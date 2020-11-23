@@ -21,7 +21,7 @@ const IncrementPhase = ({ isCurrentPhase, increments, onChange }) => {
       id: uuidv4(),
       type: 'none',
       estimation: 0,
-      checklist: { checklist: { d: false, i: false, e: false, t: false }},
+      checklist: { d: false, i: false, e: false, t: false },
       notes: '',
       criterias: []
     })

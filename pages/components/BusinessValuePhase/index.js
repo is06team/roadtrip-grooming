@@ -1,6 +1,6 @@
 const BusinessValuePhase = ({ isCurrentPhase, businessValue, onChange }) => {
   const getValueItems = () => {
-    let items = []
+    let items = [<option key={'value_item_none'}>- Choisissez</option>]
     for (let i = 5; i <= 100; i += 5) {
       items.push(<option key={'value_item_' + i} value={i}>{i}</option>)
     }
@@ -17,7 +17,7 @@ const BusinessValuePhase = ({ isCurrentPhase, businessValue, onChange }) => {
               className="big"
               id="user_story_business_value"
               value={businessValue}
-              onChange={(e) => onChange(e.target.value)}>
+              onChange={(e) => onChange(parseInt(e.target.value))}>
               {getValueItems()}
             </select>
           </fieldset>
