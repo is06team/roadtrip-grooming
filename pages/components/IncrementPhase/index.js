@@ -8,25 +8,23 @@ const IncrementPhase = ({ isCurrentPhase, increments, onChange }) => {
   /**
    * Initial data
    */
-  const [data, setData] = useState({
-    increments: increments,
-  })
+  const [incrementData, setIncrementData] = useState(increments)
 
   /**
    * Add an increment into the user story
    */
   const addIncrement = () => {
-    let increments = data.increments
-    increments.push({
+    let list = incrementData
+    list.push({
       id: uuidv4(),
       type: 'none',
       estimation: 0,
       checklist: { d: false, i: false, e: false, t: false },
       notes: '',
-      criterias: []
+      criterias: [],
     })
-    setData({ ...data, increments: increments})
-    onChange({ ...data, increments: increments})
+    setIncrementData(list)
+    onChange(list)
   }
 
   /**
@@ -35,14 +33,14 @@ const IncrementPhase = ({ isCurrentPhase, increments, onChange }) => {
    * @param {Object} value 
    */
   const updateIncrement = (id, value) => {
-    let increments = data.increments
-    for (const index in increments) {
-      if (id === increments[index].id) {
-        increments[index] = value
+    let list = incrementData
+    for (const index in list) {
+      if (id === list[index].id) {
+        list[index] = value
       }
     }
-    setData({ ...data, increments: increments})
-    onChange({ ...data, increments: increments})
+    setIncrementData(list)
+    onChange(list)
   }
 
   /**
@@ -50,14 +48,14 @@ const IncrementPhase = ({ isCurrentPhase, increments, onChange }) => {
    * @param {uuid} id 
    */
   const deleteIncrement = (id) => {
-    let increments = []
-    for (const index in data.increments) {
-      if (id !== data.increments[index].id) {
-        increments[index] = data.increments[index]
+    let list = []
+    for (const index in incrementData) {
+      if (id !== incrementData[index].id) {
+        list[index] = incrementData[index]
       }
     }
-    setData({ ...data, increments: increments})
-    onChange({ ...data, increments: increments})
+    setIncrementData(list)
+    onChange(list)
   }
 
   /**
@@ -70,10 +68,11 @@ const IncrementPhase = ({ isCurrentPhase, increments, onChange }) => {
           <div className="phase-main">
             <h1>Incréments de la US</h1>
             <div className={styles.list} id="user_story_increments">
-              {data.increments.map(increment => {
+              {incrementData.map(increment => {
                 return (
                   <Increment
                     id={increment.id}
+                    key={increment.id}
                     type={increment.type}
                     estimation={increment.estimation}
                     checklist={increment.checklist}

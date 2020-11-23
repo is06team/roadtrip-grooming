@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import Ariane from './components/Ariane'
 import AssetPhase from './components/AssetPhase'
+import Breadcrumb from './components/Breadcrumb'
 import BusinessValuePhase from './components/BusinessValuePhase'
 import ExportImportPhase from './components/ExportImportPhase'
 import IncrementPhase from './components/IncrementPhase'
@@ -11,10 +11,7 @@ import SolutionPhase from './components/SolutionPhase'
 import styles from './styles.module.scss'
 
 const Main = () => {
-  const [state, setState] = useState({
-    currentPhase: '',
-    recaps: {},
-  })
+  const [currentPhase, setCurrentPhase] = useState('')
   const [data, setData] = useState({
     title: '',
     need: {},
@@ -38,45 +35,45 @@ const Main = () => {
           onChange={(e) => setData({ ...data, title: e.target.value })} />
       </div>
       <div className={styles.Main}>
-        <Ariane
+        <Breadcrumb
           data={data}
-          currentPhase={state.currentPhase}
-          onChangePhase={(phase) => setState({ ...state, currentPhase: phase })} />
+          currentPhase={currentPhase}
+          onChangePhase={(phase) => setCurrentPhase(phase)} />
         <div className="phases" id="phase-items">
           <NeedPhase
-            isCurrentPhase={state.currentPhase === 'need'}
+            isCurrentPhase={currentPhase === 'need'}
             need={data.need}
             onChange={(value) => setData({ ...data, need: value })}
             />
           <SolutionPhase
-            isCurrentPhase={state.currentPhase === 'solution'}
+            isCurrentPhase={currentPhase === 'solution'}
             solution={data.solution}
             onChange={(value) => setData({ ...data, solution: value })}
             />
           <BusinessValuePhase
-            isCurrentPhase={state.currentPhase === 'value'}
+            isCurrentPhase={currentPhase === 'value'}
             businessValue={data.value}
             onChange={(value) => setData({ ...data, value: value })}
             />
           <KpiPhase
-            isCurrentPhase={state.currentPhase === 'kpis'}
+            isCurrentPhase={currentPhase === 'kpis'}
             kpis={data.kpis}
             onChange={(value) => setData({ ...data, kpis: value })}
             />
           <AssetPhase
-            isCurrentPhase={state.currentPhase === 'assets'}
+            isCurrentPhase={currentPhase === 'assets'}
             assets={data.assets}
             onChange={(value) => setData({ ...data, assets: value })}
             />
           <IncrementPhase
-            isCurrentPhase={state.currentPhase === 'increments'}
+            isCurrentPhase={currentPhase === 'increments'}
             increments={data.increments}
-            onChange={(value) => setData({ ...data, increments: value.increments })}
+            onChange={(value) => setData({ ...data, increments: value })}
             />
           <ExportImportPhase
-            isCurrentPhase={state.currentPhase === 'export'}
+            isCurrentPhase={currentPhase === 'export'}
             data={data}
-            onImport={() => {}}
+            onImport={(importData) => setData(importData)}
             />
         </div>
       </div>

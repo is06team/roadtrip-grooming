@@ -90,6 +90,7 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, onChange
               return (
                 <Criteria
                   id={criteria.id}
+                  key={criteria.id}
                   title={criteria.title}
                   gherkin={criteria.gherkin}
                   onChange={(value) => updateCriteria(criteria.id, value)}
@@ -128,8 +129,9 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, onChange
     return null
   }
 
-  const updateChecklist = (value) => {
-
+  const updateChecklist = (checklist) => {
+    setData({ ...data, checklist: checklist })
+    onChange({ ...data, checklist: checklist })
   }
 
   const getSecondary = (estimation, checklist) => {

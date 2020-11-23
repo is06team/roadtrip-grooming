@@ -1,6 +1,6 @@
 @import '../../../styles/variables';
 
-.Ariane {
+.Breadcrumb {
   background-color: #eeeeee;
   width: 20%;
 
@@ -15,7 +15,7 @@
   }
 }
 
-.ArianeItem {
+.BreadcrumbItem {
   cursor: pointer;
   border: 4px solid #888888;
   padding: 1em;
@@ -27,5 +27,5 @@
 }
 
 .current {
-  border: 4px solid $ariane-highlight-color;
+  border: 4px solid $breadcrumb-highlight-color;
 }

@@ -7,14 +7,15 @@ const Checklist = ({ checklist, onChange }) => {
    * Initial data
    */
   const [data, setData] = useState({
-    checklist: checklist
+    d: checklist.d,
+    i: checklist.i,
+    e: checklist.e,
+    t: checklist.t,
   })
 
   const updateItem = (field, value) => {
-    let checklist = data.checklist
-    checklist[field] = value
-    setData({ ...data, checklist: checklist })
-    onChange({ ...data, checklist: checklist })
+    setData({ ...data, [field]: value })
+    onChange({ ...data, [field]: value })
   }
 
   /**
@@ -27,7 +28,7 @@ const Checklist = ({ checklist, onChange }) => {
         <input
           type="checkbox"
           className="user_story_increment_diet_d"
-          checked={data.checklist.d ? 'checked' : ''}
+          checked={data.d ? 'checked' : ''}
           onChange={(e) => updateItem('d', e.target.checked)}
           />
         <label>D</label>
@@ -37,7 +38,7 @@ const Checklist = ({ checklist, onChange }) => {
         <input
           type="checkbox"
           className="user_story_increment_diet_i"
-          checked={data.checklist.i}
+          checked={data.i}
           onChange={(e) => updateItem('i', e.target.checked)}
           />
         <label>I</label>
@@ -47,7 +48,7 @@ const Checklist = ({ checklist, onChange }) => {
         <input
           type="checkbox"
           className="user_story_increment_diet_e"
-          checked={data.checklist.e}
+          checked={data.e}
           onChange={(e) => updateItem('e', e.target.checked)}
           />
         <label>E</label>
@@ -57,7 +58,7 @@ const Checklist = ({ checklist, onChange }) => {
         <input
           type="checkbox"
           className="user_story_increment_diet_t"
-          checked={data.checklist.t}
+          checked={data.t}
           onChange={(e) => updateItem('t', e.target.checked)}
           />        
         <label>T</label>

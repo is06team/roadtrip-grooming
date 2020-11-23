@@ -1,6 +1,6 @@
 import styles from './styles.module.scss'
 
-const Ariane = ({ data, currentPhase, onChangePhase }) => {
+const Breadcrumb = ({ data, currentPhase, onChangePhase }) => {
   const items = [
     { name: 'need', title: 'Besoin', hasRecap: true },
     { name: 'solution', title: 'Solution fonctionnelle', hasRecap: true },
@@ -29,11 +29,11 @@ const Ariane = ({ data, currentPhase, onChangePhase }) => {
   }
 
   return (
-    <div className={styles.Ariane}>
+    <div className={styles.Breadcrumb}>
       <ul id="ariane-items">
         {items.map(item => (
           <li
-            className={styles.ArianeItem + (currentPhase === item.name ? ' ' + styles.current : '')}
+            className={styles.BreadcrumbItem + (currentPhase === item.name ? ' ' + styles.current : '')}
             onClick={() => onChangePhase(item.name)}>
             <h2>{item.title}</h2>
             {item.hasRecap && getRecap(item.name, data[item.name])}
@@ -44,4 +44,4 @@ const Ariane = ({ data, currentPhase, onChangePhase }) => {
   )
 }
 
-export default Ariane
+export default Breadcrumb
