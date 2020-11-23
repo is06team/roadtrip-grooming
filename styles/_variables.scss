@@ -1,25 +1,36 @@
-// Colors
+// Palette
 
-$color-main: #c91dc9;
-$color-main-light: #d64fd6;
-$color-main-lighter: #e28fe2;
-
-$color-secondary-dark: #320d8a;
+$color-main: #108119;
 $color-secondary: #4c25aa;
-$color-secondary-light: #6f4dc0;
-$color-secondary-lighter: #9278cf;
-
 $color-black: #000000;
-$color-grey-darker: #333333;
-$color-grey-dark: #666666;
 $color-grey: #888888;
-$color-grey-light: #aaaaaa;
-$color-grey-lighter: #eeeeee;
 $color-white: #ffffff;
+
+// Computed colors
+
+$color-main-darker: darken($color-main, 30%);
+$color-main-dark: darken($color-main, 15%);
+$color-main-light: lighten($color-main, 15%);
+$color-main-lighter: lighten($color-main, 30%);
+
+$color-secondary-darker: darken($color-secondary, 30%);
+$color-secondary-dark: darken($color-secondary, 15%);
+$color-secondary-light: lighten($color-secondary, 15%);
+$color-secondary-lighter: lighten($color-secondary, 30%);
+
+$color-grey-darker: darken($color-grey, 30%);
+$color-grey-dark: darken($color-grey, 15%);
+$color-grey-light: lighten($color-grey, 15%);
+$color-grey-lighter: lighten($color-grey, 30%);
 
 // Color bindings
 
-$ariane-highlight-color: $color-main;
+$title-background-color: $color-main;
+$title-background-color-light: $color-main-light;
+
+$subtitle-color: $color-grey;
+
+$breadcrumb-highlight-color: $color-main;
 
 $button-background-color: $color-grey-lighter;
 $button-border-color: $color-grey;
@@ -29,3 +40,5 @@ $button-increment-border-color: $color-secondary-dark;
 $button-increment-text-color: $color-white;
 
 $increment-color: $color-secondary;
+
+$guide-title-color: $color-main;

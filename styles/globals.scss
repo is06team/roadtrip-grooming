@@ -20,6 +20,10 @@ a {
 h1 {
   padding: 0;
   margin: 0 0 1em 0;
+
+  small {
+    color: $subtitle-color;
+  }
 }
 
 .phases {
@@ -40,6 +44,10 @@ h1 {
 
 .phase-guides {
   width: 25%;
+}
+
+.phase-guides h3 {
+  color: $guide-title-color;
 }
 
 fieldset {
@@ -172,4 +180,12 @@ select {
   position: relative;
   display: block;
   height: 25px;
+}
+
+.code {
+  border: 1px solid #888888;
+  padding: 1em;
+  max-height: 25em;
+  overflow-y: scroll;
+  font-size: 1.2em;
 }

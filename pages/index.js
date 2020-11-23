@@ -1,54 +1,84 @@
-import Ariane from './components/Ariane'
-import Assets from './components/phases/Assets'
-import BusinessValue from './components/phases/BusinessValue'
-import Increments from './components/phases/Increments'
-import JiraExport from './components/phases/JiraExport'
-import KPIs from './components/phases/KPIs'
-import Need from './components/phases/Need'
-import React from 'react'
-import Solution from './components/phases/Solution'
+import React, { useState } from 'react'
+
+import AssetPhase from './components/AssetPhase'
+import Breadcrumb from './components/Breadcrumb'
+import BusinessValuePhase from './components/BusinessValuePhase'
+import ExportImportPhase from './components/ExportImportPhase'
+import IncrementPhase from './components/IncrementPhase'
+import KpiPhase from './components/KpiPhase'
+import NeedPhase from './components/NeedPhase'
+import SolutionPhase from './components/SolutionPhase'
 import styles from './styles.module.scss'
 
-export default class Main extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      currentPhase: null,
-      recaps: [],
-    }
-  }
+const Main = () => {
+  const [currentPhase, setCurrentPhase] = useState('')
+  const [data, setData] = useState({
+    title: '',
+    need: {},
+    solution: '',
+    value: 0,
+    kpis: '',
+    assets: '',
+    increments: [],
+  })
 
-  handleChangePhase = (phase) => {
-    this.setState({ currentPhase: phase })
-  }
-
-  handleChangeRecap = (phase, recap) => {
-    let recaps = this.state.recaps
-    recaps[phase] = recap
-    this.setState({ recaps: recaps })
-  }
-
-  render() {
-    return (
-      <div>
-        <div className={styles.UsTitle}>
-          <h1>User story :</h1>
-          <input type="text" id="user_story_title" name="user_story[title]" placeholder="Titre de la US"></input>
+  return (
+    <div>
+      <div className={styles.UsTitle}>
+        <h1>User story :</h1>
+        <input
+          type="text"
+          value={data.title}
+          id="user_story_title"
+          name="user_story[title]"
+          placeholder="Titre de la US"
+          onChange={(e) => setData({ ...data, title: e.target.value })} />
+      </div>
+      <div className={styles.Main}>
+        <Breadcrumb
+          data={data}
+          currentPhase={currentPhase}
+          onChangePhase={(phase) => setCurrentPhase(phase)} />
+        <div className="phases" id="phase-items">
+          <NeedPhase
+            isCurrentPhase={currentPhase === 'need'}
+            need={data.need}
+            onChange={(value) => setData({ ...data, need: value })}
+            />
+          <SolutionPhase
+            isCurrentPhase={currentPhase === 'solution'}
+            solution={data.solution}
+            onChange={(value) => setData({ ...data, solution: value })}
+            />
+          <BusinessValuePhase
+            isCurrentPhase={currentPhase === 'value'}
+            businessValue={data.value}
+            onChange={(value) => setData({ ...data, value: value })}
+            />
+          <KpiPhase
+            isCurrentPhase={currentPhase === 'kpis'}
+            kpis={data.kpis}
+            onChange={(value) => setData({ ...data, kpis: value })}
+            />
+          <AssetPhase
+            isCurrentPhase={currentPhase === 'assets'}
+            assets={data.assets}
+            onChange={(value) => setData({ ...data, assets: value })}
+            />
+          <IncrementPhase
+            isCurrentPhase={currentPhase === 'increments'}
+            increments={data.increments}
+            onChange={(value) => setData({ ...data, increments: value })}
+            />
+          <ExportImportPhase
+            isCurrentPhase={currentPhase === 'export'}
+            data={data}
+            onImport={(importData) => setData(importData)}
+            />
         </div>
-        <div className={styles.Main}>
-          <Ariane onChangePhase={(phase) => { this.handleChangePhase(phase) }} recaps={this.state.recaps} />
-    
-          <div className="phases" id="phase-items">
-            <Need current={this.state.currentPhase == 'need'} onTextChangedWithRecap={(recap) => this.handleChangeRecap('need', recap)} />
-            <Solution current={this.state.currentPhase == 'solution'} onTextChangedWithRecap={(recap) => this.handleChangeRecap('solution', recap)} />
-            <BusinessValue current={this.state.currentPhase == 'value'} onTextChangedWithRecap={(recap) => this.handleChangeRecap('value', recap)} />
-            <KPIs current={this.state.currentPhase == 'kpis'} onTextChangedWithRecap={(recap) => this.handleChangeRecap('kpis', recap)} />
-            <Assets current={this.state.currentPhase == 'assets'} onTextChangedWithRecap={(recap) => this.handleChangeRecap('assets', recap)} />
-            <Increments current={this.state.currentPhase == 'increments'} onTextChangedWithRecap={(recap) => this.handleChangeRecap('increments', recap)} />
-            <JiraExport current={this.state.currentPhase == 'jira'} />
-          </div>
-        </div>
-      </div>      
-    )
-  }
+      </div>
+    </div>
+  )
 }
+
+export default Main
