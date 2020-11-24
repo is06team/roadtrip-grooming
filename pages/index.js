@@ -47,7 +47,7 @@ const Main = () => {
             name="user_story[title]"
             placeholder="Titre de la US"
             onChange={(e) => setData({ ...data, title: e.target.value })} />
-          <button onClick={() => setData(initialData)}>Nouvelle US</button>
+          <button onClick={() => setData(initialData)}>Effacer tout</button>
         </div>
         <div className={styles.Main}>
           <Breadcrumb
