@@ -44,8 +44,10 @@ const ExportImportPhase = ({ isCurrentPhase, data, onImport }) => {
           <button onClick={() => downloadJsonExport()}>Télécharger</button>
 
           <h2>Importer JSON</h2>
-          <div>
+          <div class="file-field-container">
+            <label class="button" for="json_upload">Importer un fichier</label>
             <input
+              id="json_upload"
               type="file"
               accept="application/json"
               name="importJsonFile"
