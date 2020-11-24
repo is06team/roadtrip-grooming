@@ -1,5 +1,6 @@
 import JiraExport from './components/JiraExport'
 import { saveAs } from 'file-saver'
+import slug from 'slug'
 import styles from './styles.module.scss'
 
 const ExportImportPhase = ({ isCurrentPhase, data, onImport }) => {
@@ -9,7 +10,7 @@ const ExportImportPhase = ({ isCurrentPhase, data, onImport }) => {
 
   const downloadJsonExport = () => {
     const blob = new Blob([getJsonExport()], { type: 'application/json' })
-    saveAs(blob, 'UserStory.json');
+    saveAs(blob, 'UserStory-' + slug(data.title)  + '.json');
   }
 
   const importFile = (file) => {
