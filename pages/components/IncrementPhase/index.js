@@ -1,21 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
+import { AppDataContext } from '../../'
 import Increment from './components/Increment'
 import styles from './styles.module.scss'
 import { v4 as uuidv4 } from 'uuid';
 
-const IncrementPhase = ({ isCurrentPhase, increments, onChange }) => {
-  /**
-   * Initial data
-   */
-  const [incrementData, setIncrementData] = useState(increments)
+const IncrementPhase = ({ isCurrentPhase }) => {
+  const { data, setData } = useContext(AppDataContext)
 
   /**
    * Add an increment into the user story
    */
   const addIncrement = () => {
-    let list = incrementData
-    list.push({
+    let increments = data.increments
+    increments.push({
       id: uuidv4(),
       type: 'none',
       estimation: 0,
@@ -23,8 +21,10 @@ const IncrementPhase = ({ isCurrentPhase, increments, onChange }) => {
       notes: '',
       criterias: [],
     })
-    setIncrementData(list)
-    onChange(list)
+    setData({
+      ...data,
+      increments: increments
+    })
   }
 
   /**
@@ -33,14 +33,16 @@ const IncrementPhase = ({ isCurrentPhase, increments, onChange }) => {
    * @param {Object} value 
    */
   const updateIncrement = (id, value) => {
-    let list = incrementData
-    for (const index in list) {
-      if (id === list[index].id) {
-        list[index] = value
+    let increments = data.increments
+    for (const index in increments) {
+      if (id === increments[index].id) {
+        increments[index] = value
       }
     }
-    setIncrementData(list)
-    onChange(list)
+    setData({
+      ...data,
+      increments: increments
+    })
   }
 
   /**
@@ -48,14 +50,16 @@ const IncrementPhase = ({ isCurrentPhase, increments, onChange }) => {
    * @param {uuid} id 
    */
   const deleteIncrement = (id) => {
-    let list = []
-    for (const index in incrementData) {
-      if (id !== incrementData[index].id) {
-        list[index] = incrementData[index]
+    let increments = []
+    for (const index in data.increments) {
+      if (id !== data.increments[index].id) {
+        increments[index] = data.increments[index]
       }
     }
-    setIncrementData(list)
-    onChange(list)
+    setData({
+      ...data,
+      increments: increments
+    })
   }
 
   /**
@@ -68,7 +72,7 @@ const IncrementPhase = ({ isCurrentPhase, increments, onChange }) => {
           <div className="phase-main">
             <h1>Incréments de la US</h1>
             <div className={styles.list} id="user_story_increments">
-              {incrementData.map(increment => {
+              {data.increments.map(increment => {
                 return (
                   <Increment
                     id={increment.id}
@@ -77,6 +81,7 @@ const IncrementPhase = ({ isCurrentPhase, increments, onChange }) => {
                     estimation={increment.estimation}
                     checklist={increment.checklist}
                     criterias={increment.criterias}
+                    notes={increment.notes}
                     onChange={(value) => updateIncrement(increment.id, value)}
                     onDelete={(id) => deleteIncrement(id)}
                     />
