@@ -167,7 +167,6 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, onChange
           <h2>
             <span>Incrément</span>
             {getTypeSelector(data.type)}
-            <span>id: {data.id}</span>
           </h2>
           <button className="title" onClick={() => onDelete(data.id)}>Supprimer</button>
         </div>

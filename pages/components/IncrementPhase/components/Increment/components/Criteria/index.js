@@ -35,7 +35,6 @@ const Criteria = ({ id, title, gherkin, onChange, onDelete }) => {
             value={data.title}
             placeholder="Titre du critère"
             onChange={(e) => updateField('title', e.target.value) } />
-          <span>id: {data.id}</span>
           <button className="criteriaTitle" onClick={() => onDelete(data.id) }>Supprimer</button>
         </div>
         <div className={styles.content}>
