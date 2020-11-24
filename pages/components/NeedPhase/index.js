@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 
-const NeedPhase = ({ isCurrentPhase, need, onChange }) => {
-  const [data, setData] = useState({
-    as: need.as,
-    want: need.want,
-    to: need.to,
-  })
+import { AppDataContext } from '../../'
+
+const NeedPhase = ({ isCurrentPhase }) => {
+  const { data, setData } = useContext(AppDataContext)
 
   const handleChange = (field, value) => {
-    setData({ ...data, [field]: value })
-    onChange({ ...data, [field]: value })
+    setData({
+      ...data,
+      need: {
+        ...data.need,
+        [field]: value,
+      }
+    })
   }
 
   return (
@@ -20,17 +23,17 @@ const NeedPhase = ({ isCurrentPhase, need, onChange }) => {
             <fieldset>
               <div className="field">
                 <label htmlFor="user_story_need_as">En tant que</label>
-                <input type="text" value={data.as} placeholder="Persona" onChange={(e) => handleChange('as', e.target.value)} />
+                <input type="text" value={data.need.as} placeholder="Persona" onChange={(e) => handleChange('as', e.target.value)} />
                 <span className="field-hint">(Qui)</span>
               </div>
               <div className="field">
                 <label htmlFor="user_story_need_want">Je souhaite</label>
-                <input type="text" value={data.want} placeholder="Ceci" onChange={(e) => handleChange('want', e.target.value)} />
+                <input type="text" value={data.need.want} placeholder="Ceci" onChange={(e) => handleChange('want', e.target.value)} />
                 <span className="field-hint">(Quoi)</span>
               </div>
               <div className="field">
                 <label htmlFor="user_story_need_to">Afin de</label>
-                <input type="text" value={data.to} placeholder="Finalité" onChange={(e) => handleChange('to', e.target.value)} />
+                <input type="text" value={data.need.to} placeholder="Finalité" onChange={(e) => handleChange('to', e.target.value)} />
                 <span className="field-hint">(Pourquoi)</span>
               </div>
             </fieldset>
