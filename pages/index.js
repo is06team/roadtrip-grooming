@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 
 import AssetPhase from './components/AssetPhase'
 import Breadcrumb from './components/Breadcrumb'
@@ -12,23 +12,32 @@ import styles from './styles.module.scss'
 
 export const AppDataContext = createContext()
 
+
 const Main = () => {
-  const [currentPhase, setCurrentPhase] = useState('')
-  const [data, setData] = useState({
+  const initialData = {
     title: '',
-    need: {},
+    need: {
+      as: '',
+      want: '',
+      to: '',
+    },
     solution: '',
     value: 0,
     kpis: '',
     assets: '',
     increments: [],
+  }
+
+  const [currentPhase, setCurrentPhase] = useState('')
+  const [data, setData] = useState(initialData)
+
+  useEffect(() => {
+    document.title = 'GroomingApp'
   })
 
   return (
     <div>
-      <AppDataContext.Provider
-        value={{ data, setData }}
-      >
+      <AppDataContext.Provider value={{ data, setData }}>
         <div className={styles.UsTitle}>
           <h1>User story :</h1>
           <input
@@ -38,6 +47,7 @@ const Main = () => {
             name="user_story[title]"
             placeholder="Titre de la US"
             onChange={(e) => setData({ ...data, title: e.target.value })} />
+          <button onClick={() => setData(initialData)}>Nouvelle US</button>
         </div>
         <div className={styles.Main}>
           <Breadcrumb
