@@ -23,7 +23,7 @@ const Breadcrumb = ({ data, currentPhase, onChangePhase }) => {
     return (
       <div
         className="recap"
-        dangerouslySetInnerHTML={{ __html: (itemName === 'need') ? getNeedRecapText(itemData) : itemData }}>
+        dangerouslySetInnerHTML={{ __html: (itemName === 'need') ? getNeedRecapText(itemData) : (itemData || '') }}>
       </div>
     )
   }
