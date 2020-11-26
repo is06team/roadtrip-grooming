@@ -21,7 +21,7 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, onChange
     { type: 'tracking', hasCriterias: true, hasDiet: true, hasEstimation: true, hasNotes: false },
     { type: 'gdpr', hasCriterias: true, hasDiet: true, hasEstimation: true, hasNotes: false },
     { type: 'ui', hasCriterias: false, hasDiet: true, hasEstimation: true, hasNotes: true },
-    { type: 'release', hasCriterias: false, hasDiet: false, hasEstimation: false, hasNotes: true },
+    { type: 'release', hasCriterias: false, hasDiet: false, hasEstimation: true, hasNotes: true },
   ]
 
   const handleChangeData = (newData) => {
