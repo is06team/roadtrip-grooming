@@ -33,6 +33,7 @@ const Breadcrumb = ({ data, currentPhase, onChangePhase }) => {
       <ul id="ariane-items">
         {items.map(item => (
           <li
+            key={'item_' + item.name}
             className={styles.BreadcrumbItem + (currentPhase === item.name ? ' ' + styles.current : '')}
             onClick={() => onChangePhase(item.name)}>
             <h2>{item.title}</h2>
