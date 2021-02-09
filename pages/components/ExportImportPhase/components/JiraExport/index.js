@@ -1,7 +1,7 @@
 import styles from './styles.module.scss'
 
 const JiraExport = ({ data }) => {
-  const getIncrement = (increment) => {
+  const getIncrement = (need, increment) => {
     return (
       <div className={styles.increment}>
         <h3>{data.title} : {increment.type} (Ticket "Story increment")</h3>
@@ -9,6 +9,12 @@ const JiraExport = ({ data }) => {
         {increment.estimation > 0 && (<div><strong>ROI</strong> : {parseInt(data.value / increment.estimation)}</div>)}
         {(increment.type !== 'release') && getChecklist(increment.checklist)}
         <pre className="code">
+          <div>h2. Besoin<br /><br /></div>
+          <div>
+            *ETQ* {need.as}<br />
+            *JS* {need.want}<br />
+            *AD* {need.to}<br /><br />
+          </div>
           <div>{increment.criterias.length > 0 && getCriterias(increment.criterias)}</div>
           {increment.notes && (
             <div>
@@ -77,7 +83,7 @@ const JiraExport = ({ data }) => {
           <div>{data.assets || 'Néant'}<br /><br /></div>
         </pre>
       </div>
-      {data.increments.map(increment => getIncrement(increment))}
+      {data.increments.map(increment => getIncrement(data.need, increment))}
     </div>
   )
 }
