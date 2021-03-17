@@ -23,7 +23,7 @@ const Timer = () => {
     }
 
     const reset = () => {
-        setSeconds(5)
+        setSeconds(defaultSeconds)
     }
 
     useEffect(() => {
