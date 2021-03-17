@@ -9,6 +9,7 @@ import KpiPhase from './components/KpiPhase'
 import NeedPhase from './components/NeedPhase'
 import SolutionPhase from './components/SolutionPhase'
 import styles from './styles.module.scss'
+import Timer from './components/Timer'
 
 import { defaultData } from '../model/defaultData'
 
@@ -34,6 +35,7 @@ const Main = () => {
             name="user_story[title]"
             placeholder="Titre de la US"
             onChange={(e) => setData({ ...data, title: e.target.value })} />
+          <Timer></Timer>
           <button onClick={() => setData(initialData)}>Effacer tout</button>
         </div>
         <div className={styles.Main}>
