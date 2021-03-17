@@ -3,7 +3,14 @@ import React, { useState } from 'react'
 import { AppDataContext } from '../../../../../../'
 import styles from './styles.module.scss'
 
-const Checklist = ({ checklist, onChange }) => {
+const defaultChecklist = {
+    d: '',
+    i: '',
+    e: '',
+    t: '',
+}
+
+const Checklist = ({ checklist = defaultChecklist, onChange }) => {
   /**
    * Initial data
    */

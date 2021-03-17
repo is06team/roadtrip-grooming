@@ -10,26 +10,13 @@ import NeedPhase from './components/NeedPhase'
 import SolutionPhase from './components/SolutionPhase'
 import styles from './styles.module.scss'
 
-export const AppDataContext = createContext()
+import { defaultData } from '../model/defaultData'
 
+export const AppDataContext = createContext({ data: defaultData })
 
 const Main = () => {
-  const initialData = {
-    title: '',
-    need: {
-      as: '',
-      want: '',
-      to: '',
-    },
-    solution: '',
-    value: 0,
-    kpis: '',
-    assets: '',
-    increments: [],
-  }
-
   const [currentPhase, setCurrentPhase] = useState('')
-  const [data, setData] = useState(initialData)
+  const [data, setData] = useState(defaultData)
 
   useEffect(() => {
     document.title = 'GroomingApp'
