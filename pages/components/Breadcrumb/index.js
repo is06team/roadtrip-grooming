@@ -1,6 +1,7 @@
 import styles from './styles.module.scss'
+import { defaultData } from '../../../model/defaultData'
 
-const Breadcrumb = ({ data, currentPhase, onChangePhase }) => {
+const Breadcrumb = ({ data = defaultData, currentPhase, onChangePhase }) => {
   const items = [
     { name: 'need', title: 'Besoin', hasRecap: true },
     { name: 'solution', title: 'Solution fonctionnelle', hasRecap: true },

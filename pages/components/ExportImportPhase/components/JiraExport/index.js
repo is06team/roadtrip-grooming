@@ -1,6 +1,7 @@
 import styles from './styles.module.scss'
+import { defaultData } from '../../../../../model/defaultData'
 
-const JiraExport = ({ data }) => {
+const JiraExport = ({ data = defaultData }) => {
   const getIncrement = (need, increment) => {
     return (
       <div className={styles.increment}>
