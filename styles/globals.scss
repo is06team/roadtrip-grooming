@@ -101,7 +101,7 @@ button, .file-field-container .button {
     border-bottom-width: 1px;
   }
 
-  &.title, &.criteriaTitle {
+  &.title, &.criteriaTitle, &.timer {
     padding: 0 1em;
     border: 0;
     border-radius: 0;
@@ -113,6 +113,19 @@ button, .file-field-container .button {
 
     &:active {
       margin: 0;
+    }
+  }
+
+  &.timer {
+    background-color: $color-main-light;
+    padding: 0.5em 1em !important;
+    margin-right: 0.5em;
+
+    &:active {
+      margin-right: 0.5em !important;
+    }
+    &:hover {
+      background-color: $color-main-lighter;
     }
   }
 
