@@ -6,7 +6,7 @@ import Estimation from './components/Estimation'
 import styles from './styles.module.scss'
 import { v4 as uuidv4 } from 'uuid';
 
-const Increment = ({ id, type, estimation, checklist, notes, criterias, onChange, onDelete }) => {
+const Increment = ({ id, type, estimation, checklist, notes, criterias, userStoryTitle, onChange, onDelete }) => {
   const [ data, setData ] = useState({
     id: id,
     type: type,
@@ -139,8 +139,19 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, onChange
     if (currentIncrementType && (currentIncrementType.hasEstimation || currentIncrementType.hasDiet)) {
       return (
         <div className={styles.secondary}>
-          <Checklist checklist={checklist} onChange={(value) => updateChecklist(value)} />
-          <Estimation estimation={estimation} onChange={(newEstimation) => handleChangeData({ ...data, estimation: newEstimation })} />
+          {currentIncrementType.hasDiet &&
+            <Checklist
+              checklist={checklist}
+              onChange={(value) => updateChecklist(value)}
+              />
+          }
+          {currentIncrementType.hasEstimation &&
+            <Estimation
+              estimation={estimation}
+              incrementName={userStoryTitle + ' : ' + currentIncrementType.type}
+              onChange={(newEstimation) => handleChangeData({ ...data, estimation: newEstimation })}
+              />
+          }
         </div>
       )
     }
