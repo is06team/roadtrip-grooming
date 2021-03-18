@@ -41,15 +41,15 @@ const Timer = () => {
 
     return (
         <div className={styles.Timer}>
-            <div>
+            <div className={styles.buttons}>
+                <button className="timer" onClick={startPause}><i className={'fas ' + (active ? 'fa-pause' : 'fa-play')}></i></button>
+                <button className="timer" onClick={reset}><i className="fas fa-undo-alt"></i></button>
+            </div>
+            <div className={styles.counter}>
                 <span className={styles.digits}>{format(seconds)}</span>
                 <div className={styles.progressContainer}>
-                    <div className={styles.progress} style={{ width: progressWidth(seconds)}}></div>
+                    <div className={styles.progressBar} style={{ width: progressWidth(seconds)}}></div>
                 </div>
-            </div>
-            <div className={styles.buttons}>
-                <button onClick={startPause}>Start / Pause</button>
-                <button onClick={reset}>Reset</button>
             </div>
         </div>
     );
