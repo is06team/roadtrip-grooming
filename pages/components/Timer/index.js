@@ -23,6 +23,7 @@ const Timer = () => {
     }
 
     const reset = () => {
+        setActive(false)
         setSeconds(defaultSeconds)
     }
 
