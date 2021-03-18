@@ -82,6 +82,7 @@ const IncrementPhase = ({ isCurrentPhase }) => {
                     checklist={increment.checklist}
                     criterias={increment.criterias}
                     notes={increment.notes}
+                    userStoryTitle={data.title}
                     onChange={(value) => updateIncrement(increment.id, value)}
                     onDelete={(id) => deleteIncrement(id)}
                     />
@@ -110,7 +111,7 @@ const IncrementPhase = ({ isCurrentPhase }) => {
             <h3>DIET</h3>
             <p>Pour chaque incrément (lorsqu'il est éligible), on peut définir si il est :</p>
             <ul>
-              <li><strong>D</strong>écoupable : est-ce que l'incrément n'est plus découpable davantage ?</li>
+              <li><strong>D</strong>écoupé au maximum : est-ce que l'incrément n'est plus découpable davantage ?</li>
               <li><strong>I</strong>ndépendant : d'un autre incrément, d'une autre US ou d'assets</li>
               <li><strong>E</strong>stimable : si l'équipe est en mesure d'estimer l'incrément</li>
               <li><strong>T</strong>estable : si tous les critères ont été écrits pour cet incrément</li>

@@ -101,7 +101,7 @@ button, .file-field-container .button {
     border-bottom-width: 1px;
   }
 
-  &.title, &.criteriaTitle, &.timer {
+  &.title, &.criteriaTitle, &.timer, &.slackPoll {
     padding: 0 1em;
     border: 0;
     border-radius: 0;
@@ -131,6 +131,19 @@ button, .file-field-container .button {
 
   &.criteriaTitle {
     background-color: $color-grey;
+  }
+
+  &.slackPoll {
+    padding: 0;
+    background-color: transparent;
+    color: $color-secondary;
+    font-size: 1.5em;
+    display: inline;
+    margin-left: 0.5em;
+
+    &:active {
+      margin-left: 0.5em !important;
+    }
   }
 }
 

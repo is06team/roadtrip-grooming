@@ -1,7 +1,22 @@
 import React from 'react'
 import styles from './styles.module.scss';
 
-const Estimation = ({ estimation, onChange }) => {
+const Estimation = ({ estimation, incrementName, onChange }) => {
+
+  const copySlackPollToClipboard = () => {
+    let pollText = '/poll "Estimation of ' + incrementName + '" '
+    pollText += '"for a complexity of 1" '
+    pollText += '"for a complexity of 2" '
+    pollText += '"for a complexity of 3" '
+    pollText += '"for a complexity of 5" '
+    pollText += '"for a complexity of 8" '
+    pollText += '"for a complexity of 13" '
+    pollText += '"for a complexity of 21" '
+    pollText += '"HIGHHHHHHHEEEEEEEER" '
+    pollText += ' limit 1'
+    navigator.clipboard.writeText(pollText)
+  }
+
   return (
     <div className={styles.Estimation}>
       <label>Estimation</label>
@@ -17,6 +32,7 @@ const Estimation = ({ estimation, onChange }) => {
         <option>21</option>
         <option>34</option>
       </select>
+      <button className="slackPoll" onClick={copySlackPollToClipboard}><i className="fab fa-slack"></i></button>
     </div>
   )
 }
