@@ -209,11 +209,14 @@ select {
 }
 
 .code {
+  font-family: monospace;
   border: 1px solid #888888;
   padding: 1em;
   max-height: 25em;
+  min-height: 20em;
   overflow-y: scroll;
   font-size: 1.2em;
+  width: 100%;
 }
 
 .file-field-container {
