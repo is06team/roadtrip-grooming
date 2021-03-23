@@ -37,7 +37,7 @@ const Main = () => {
             placeholder="Titre de la US"
             onChange={(e) => setData({ ...data, title: e.target.value })} />
           <Timer></Timer>
-          <button onClick={() => setData(initialData)}>Effacer tout</button>
+          <button onClick={() => setData(defaultData)}>Effacer tout</button>
         </div>
         <div className={styles.Main}>
           <Breadcrumb
