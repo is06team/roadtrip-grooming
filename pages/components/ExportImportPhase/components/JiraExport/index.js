@@ -2,28 +2,40 @@ import styles from './styles.module.scss'
 import { defaultData } from '../../../../../model/defaultData'
 
 const JiraExport = ({ data = defaultData }) => {
-  const getIncrement = (need, increment) => {
+  const getNeed = () => {
+    return 'h2. Besoin\n\n' +
+      '*ETQ* ' + data.need.as + '\n' +
+      '*JS* ' + data.need.want + '\n' +
+      '*AD* ' + data.need.to + '\n\n' +
+
+      'h2. Solution fonctionnelle\n\n' +
+      (data.solution || 'Néant') + '\n\n' +
+
+      'h2. KPIs de succès\n\n' +
+      (data.kpis || 'Néant') + '\n\n' +
+
+      'h2. Assets\n\n' +
+      (data.assets || 'Néant') + '\n\n'
+  }
+
+  const getIncrement = (increment) => {
+    let incrementString = getNeed()
+
+    if (increment.criterias.length > 0) {
+      incrementString += getCriterias(increment.criterias)
+    }
+    if (increment.notes) {
+      incrementString += 'h2. Notes\n\n' + increment.notes
+    }
+
     return (
       <div className={styles.increment}>
         <h3>{data.title} : {increment.type} (Ticket "Story increment")</h3>
         {increment.estimation > 0 && (<div><strong>Estimation</strong> : {increment.estimation}</div>)}
         {increment.estimation > 0 && (<div><strong>ROI</strong> : {parseInt(data.value / increment.estimation)}</div>)}
         {(increment.type !== 'release') && getChecklist(increment.checklist)}
-        <pre className="code">
-          <div>h2. Besoin<br /><br /></div>
-          <div>
-            *ETQ* {need.as}<br />
-            *JS* {need.want}<br />
-            *AD* {need.to}<br /><br />
-          </div>
-          <div>{increment.criterias.length > 0 && getCriterias(increment.criterias)}</div>
-          {increment.notes && (
-            <div>
-              <div>h2. Notes<br /><br /></div>
-              <div>{increment.notes}</div>
-            </div>
-          )}
-        </pre>
+        
+        <textarea className="code" value={incrementString}></textarea>
       </div>
     )
   }
@@ -46,22 +58,14 @@ const JiraExport = ({ data = defaultData }) => {
   }
 
   const getCriterias = (criterias) => {
-    return (
-      <div>
-        <div>h2. Critères d'acceptation<br /><br /></div>
-        <div>
-          {criterias.map(criteria => {
-            return (
-              <div>
-                <div>{'{panel:title=' + criteria.title + '}'}</div>
-                <div>{criteria.gherkin}</div>
-                <div>{'{panel}'}<br /><br /></div>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-    )
+    const criteriaString = criterias.map(criteria => {
+      return '{panel:title=' + criteria.title + '}\n' +
+        criteria.gherkin +
+        '\n{panel}\n\n'
+    })
+
+    return 'h2. Critères d\'acceptation\n\n'
+      + criteriaString
   }
 
   return (
@@ -69,22 +73,10 @@ const JiraExport = ({ data = defaultData }) => {
       <h3>{data.title} (Ticket "Story")</h3>
       <p><strong>Valeur métier :</strong> {data.value}</p>
       <div className={styles.US}>
-        <pre className="code">
-          <div>h2. Besoin<br /><br /></div>
-          <div>
-            *ETQ* {data.need.as}<br />
-            *JS* {data.need.want}<br />
-            *AD* {data.need.to}<br /><br />
-          </div>
-          <div>h2. Solution fonctionnelle<br /><br /></div>
-          <div>{data.solution || 'Néant'}<br /><br /></div>
-          <div>h2. KPIs de succès<br /><br /></div>
-          <div>{data.kpis || 'Néant'}<br /><br /></div>
-          <div>h2. Assets<br /><br /></div>
-          <div>{data.assets || 'Néant'}<br /><br /></div>
-        </pre>
+        <textarea className="code" value={getNeed()}>
+        </textarea>
       </div>
-      {data.increments.map(increment => getIncrement(data.need, increment))}
+      {data.increments.map(increment => getIncrement(increment))}
     </div>
   )
 }
