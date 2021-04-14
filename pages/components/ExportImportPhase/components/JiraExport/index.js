@@ -40,6 +40,17 @@ const JiraExport = ({ data = defaultData }) => {
     )
   }
 
+  const getSprintSuggestion = (checklist) => {
+    if (checklist.d && checklist.e && checklist.t) {
+      if (checklist.i) {
+        return 'A placer dans "Ready for sprint"'
+      } else {
+        return 'A placer dans "Almost ready for sprint"'
+      }
+    }
+    return 'Laisser dans "Ready for grooming"'
+  }
+
   const getChecklist = (checklist) => {
     return (
       <div>
@@ -49,9 +60,7 @@ const JiraExport = ({ data = defaultData }) => {
           {checklist.e ? 'E' : '-'}
           {checklist.t ? 'T' : '-'}
         </strong>
-        {(checklist.d && checklist.i && checklist.e && checklist.t)
-          ? ' -> A placer dans "Ready for sprint"'
-          : ' -> Laisser dans "Ready for grooming"'}
+        {'-> ' + getSprintSuggestion(checklist)}
         <br />
       </div>
     )
