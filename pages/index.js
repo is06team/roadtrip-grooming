@@ -1,5 +1,4 @@
 import React, { createContext, useEffect, useState } from 'react'
-import Head from 'next/head'
 
 import AssetPhase from './components/AssetPhase'
 import Breadcrumb from './components/Breadcrumb'
@@ -75,9 +74,6 @@ const Main = () => {
           </div>
         </div>
       </AppDataContext.Provider>
-      <Head>
-        <script type="text/javascript" src="https://kit.fontawesome.com/c8a09f3a5c.js"></script>
-      </Head>
     </div>
   )
 }

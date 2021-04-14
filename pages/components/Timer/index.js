@@ -43,8 +43,8 @@ const Timer = () => {
   return (
     <div className={styles.Timer}>
       <div className={styles.buttons}>
-        <button className="timer" onClick={startPause}><i className={'fas ' + (active ? 'fa-pause' : 'fa-play')}></i></button>
-        <button className="timer" onClick={reset}><i className="fas fa-undo-alt"></i></button>
+        <button className="timer" onClick={startPause}>P</button>
+        <button className="timer" onClick={reset}>R</button>
       </div>
       <div className={styles.counter}>
         <span className={styles.digits}>{format(seconds)}</span>
