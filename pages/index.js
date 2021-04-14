@@ -21,7 +21,7 @@ const Main = () => {
 
   useEffect(() => {
     document.title = 'GroomingApp'
-  })
+  }, [])
 
   return (
     <div>
