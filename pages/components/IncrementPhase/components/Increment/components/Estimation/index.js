@@ -32,7 +32,7 @@ const Estimation = ({ estimation, incrementName, onChange }) => {
         <option>21</option>
         <option>34</option>
       </select>
-      <button className="slackPoll" onClick={copySlackPollToClipboard}>S</button>
+      <button className="slackPoll" onClick={copySlackPollToClipboard}><i className="fab fa-slack"></i></button>
     </div>
   )
 }
