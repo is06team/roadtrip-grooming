@@ -2,14 +2,20 @@ import styles from './styles.module.scss'
 import { defaultData } from '../../../model/defaultData'
 
 const Breadcrumb = ({ data = defaultData, currentPhase, onChangePhase }) => {
-  const items = [
+  const preGroomingItems = [
     { name: 'need', title: 'Besoin', hasRecap: true },
     { name: 'solution', title: 'Solution fonctionnelle', hasRecap: true },
     { name: 'value', title: 'Valeur métier', hasRecap: true },
     { name: 'kpis', title: 'KPIs de succès', hasRecap: true },
     { name: 'assets', title: 'Assets', hasRecap: true },
-    { name: 'increments', title: 'Incréments', hasRecap: false },
-    { name: 'export', title: 'Exporter / Importer', hasRecap: false },
+  ]
+
+  const groomingItems = [
+    { name: 'increments', title: 'Incréments', hasRecap: false }
+  ]
+
+  const otherItems = [
+    { name: 'export', title: 'Exporter / Importer', hasRecap: false }
   ]
 
   const getNeedRecapText = (needData) => {
@@ -31,16 +37,37 @@ const Breadcrumb = ({ data = defaultData, currentPhase, onChangePhase }) => {
 
   return (
     <div className={styles.Breadcrumb}>
-      <ul id="ariane-items">
-        {items.map(item => (
+      <h2>Pré-grooming :</h2>
+      <ul>
+        {preGroomingItems.map(item => (
           <li
             key={'item_' + item.name}
             className={styles.BreadcrumbItem + (currentPhase === item.name ? ' ' + styles.current : '')}
             onClick={() => onChangePhase(item.name)}>
-            <h2>{item.title}</h2>
+            <h3>{item.title}</h3>
             {item.hasRecap && getRecap(item.name, data[item.name])}
           </li>
         ))}
+      </ul>
+      <h2>Grooming :</h2>
+      <ul>
+        {groomingItems.map(item => (
+          <li
+            key={'item_' + item.name}
+            className={styles.BreadcrumbItem + (currentPhase === item.name ? ' ' + styles.current : '')}
+            onClick={() => onChangePhase(item.name)}>
+            <h3>{item.title}</h3>
+            {item.hasRecap && getRecap(item.name, data[item.name])}
+          </li>
+        ))}
+      </ul>
+      <ul>
+        <li
+          key={'item_export'}
+          className={styles.BreadcrumbItem + (currentPhase === 'export' ? ' ' + styles.current : '')}
+          onClick={() => onChangePhase('export')}>
+          <h3>Exporter / Importer</h3>
+        </li>
       </ul>
     </div>
   )

@@ -82,7 +82,7 @@ const JiraExport = ({ data = defaultData }) => {
       <h3>{data.title} (Ticket "Story")</h3>
       <p><strong>Valeur métier :</strong> {data.value}</p>
       <div className={styles.US}>
-        <textarea className="code" value={getNeed()}>
+        <textarea className="code" readOnly value={getNeed()}>
         </textarea>
       </div>
       {data.increments.map(increment => getIncrement(increment))}

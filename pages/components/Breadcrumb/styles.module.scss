@@ -13,15 +13,21 @@
     justify-content: space-between;
     justify-items: flex-start; 
   }
+
+  h2 {
+    font-size: 1em;
+    margin: 0;
+    padding: 1rem 1rem 0 1rem;
+  }
 }
 
 .BreadcrumbItem {
   cursor: pointer;
   border: 4px solid #888888;
-  padding: 1em;
+  padding: 0.5rem;
   margin-bottom: 0.5em;
 
-  h2 {
+  h3 {
     margin: 0;
   }
 }
