@@ -17,7 +17,7 @@ const Criteria = ({ id, title, gherkin, onChange, onDelete }) => {
     const suggestions = Suggestions.filter((s) => {
       return s.startsWith(text)
     })
-    return suggestions[0] || ''
+    return suggestions[0] || text
   }
 
   const getCurrentLine = (lines, position) => {
