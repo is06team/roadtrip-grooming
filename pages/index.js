@@ -3,6 +3,7 @@ import React, { createContext, useEffect, useState } from 'react'
 import AssetPhase from './components/AssetPhase'
 import Breadcrumb from './components/Breadcrumb'
 import BusinessValuePhase from './components/BusinessValuePhase'
+import EnablerPhase from './components/EnablerPhase'
 import ExportImportPhase from './components/ExportImportPhase'
 import IncrementPhase from './components/IncrementPhase'
 import KpiPhase from './components/KpiPhase'
@@ -59,6 +60,11 @@ const Main = () => {
               isCurrentPhase={currentPhase === 'kpis'}
               kpis={data.kpis}
               onChange={(value) => setData({ ...data, kpis: value })}
+              />
+            <EnablerPhase
+              isCurrentPhase={currentPhase === 'enablers'}
+              enablers={data.enablers}
+              onChange={(enablers) => setData({ ...data, enablers: enablers })}
               />
             <AssetPhase
               isCurrentPhase={currentPhase === 'assets'}

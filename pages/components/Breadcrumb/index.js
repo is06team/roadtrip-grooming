@@ -7,10 +7,11 @@ const Breadcrumb = ({ data = defaultData, currentPhase, onChangePhase }) => {
     { name: 'solution', title: 'Solution fonctionnelle', hasRecap: true },
     { name: 'value', title: 'Valeur métier', hasRecap: true },
     { name: 'kpis', title: 'KPIs de succès', hasRecap: true },
-    { name: 'assets', title: 'Assets', hasRecap: true },
+    { name: 'enablers', title: 'Enablers', hasRecap: true }
   ]
 
   const groomingItems = [
+    { name: 'assets', title: 'Assets', hasRecap: true },
     { name: 'increments', title: 'Incréments', hasRecap: false }
   ]
 

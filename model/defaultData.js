@@ -8,6 +8,7 @@ export const defaultData = {
     solution: '',
     value: 0,
     kpis: '',
+    enablers: '',
     assets: '',
     increments: [],
 }
