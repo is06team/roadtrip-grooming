@@ -1,5 +1,6 @@
 import styles from './styles.module.scss'
 import { defaultData } from '../../../../../model/defaultData'
+import { incrementTypes, getIncrementTypeLabel } from '../../../../../config/increments'
 
 const JiraExport = ({ data = defaultData }) => {
   const getNeed = () => {
@@ -30,7 +31,7 @@ const JiraExport = ({ data = defaultData }) => {
 
     return (
       <div className={styles.increment}>
-        <h3>{data.title} : {increment.type} (Ticket "Story increment")</h3>
+        <h3>{data.title} : {getIncrementTypeLabel(increment.type)} (Ticket "Story increment")</h3>
         {increment.estimation > 0 && (<div><strong>Estimation</strong> : {increment.estimation}</div>)}
         {increment.estimation > 0 && (<div><strong>ROI</strong> : {parseInt(data.value / increment.estimation)}</div>)}
         {(increment.type !== 'release') && getChecklist(increment.checklist)}

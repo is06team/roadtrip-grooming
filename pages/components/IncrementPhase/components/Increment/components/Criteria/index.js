@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { criteriaDictionary as Suggestions } from '../../../../../../../model/criterias'
+import { criteriaDictionary as Suggestions } from '../../../../../../../config/criterias'
 import styles from './styles.module.scss'
 
 const Criteria = ({ id, title, gherkin, onChange, onDelete }) => {

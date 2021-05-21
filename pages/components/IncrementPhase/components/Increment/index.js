@@ -6,6 +6,8 @@ import Estimation from './components/Estimation'
 import styles from './styles.module.scss'
 import { v4 as uuidv4 } from 'uuid';
 
+import { incrementTypes } from '../../../../../config/increments'
+
 const Increment = ({ id, type, estimation, checklist, notes, criterias, userStoryTitle, onChange, onDelete }) => {
   const [ data, setData ] = useState({
     id: id,
@@ -14,15 +16,8 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, userStor
     checklist: checklist,
     notes: notes,
     criterias: criterias,
+    dependencies: ''
   })
-
-  const incrementTypes = [
-    { type: 'flow', hasCriterias: true, hasDiet: true, hasEstimation: true, hasNotes: false },
-    { type: 'tracking', hasCriterias: true, hasDiet: true, hasEstimation: true, hasNotes: false },
-    { type: 'gdpr', hasCriterias: true, hasDiet: true, hasEstimation: true, hasNotes: false },
-    { type: 'ui', hasCriterias: false, hasDiet: true, hasEstimation: true, hasNotes: true },
-    { type: 'release', hasCriterias: false, hasDiet: false, hasEstimation: true, hasNotes: true },
-  ]
 
   const handleChangeData = (newData) => {
     setData(newData)
@@ -158,15 +153,32 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, userStor
     return null
   }
 
+  const updateDependencies = (dependencies) => {
+    setData({ ...data, dependencies: dependencies })
+    onChange({ ...data, dependencies: dependencies })
+  }
+
+  const getDependencies = () => {
+    const currentIncrementType = getCurrentIncrementType()
+    return (
+      <>
+        {currentIncrementType && currentIncrementType.hasDependencies && 
+          <div className={styles.dependencies}>
+            <div className="field">
+              <label>Dépendant de :</label>
+              <input type="text" value={data.dependencies} onChange={(e) => updateDependencies(e.target.value)} />
+            </div>
+          </div>
+        }
+      </>
+    )
+  }
+
   const getTypeSelector = (currentType) => {
     return (
       <select className="title user_story_increment_type" name="type" value={currentType} onChange={(e) => handleChangeData({ ...data, type: e.target.value })}>
         <option value="none">- Choisissez le type</option>
-        <option value="flow" selected={currentType === 'flow' ? 'selected' : ''}>Parcours</option>
-        <option value="tracking" selected={currentType === 'tracking' ? 'selected' : ''}>Tracking</option>
-        <option value="gdpr" selected={currentType === 'gdpr' ? 'selected' : ''}>GDPR</option>
-        <option value="ui" selected={currentType === 'ui' ? 'selected' : ''}>UI</option>
-        <option value="release" selected={currentType === 'release' ? 'selected' : ''}>Release</option>
+        {incrementTypes.map((type) => <option value={type.type}>{type.label}</option>)}
       </select>
     )
   }
@@ -186,6 +198,7 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, userStor
           {getNotes(data.notes)}
         </div>
         {getSecondary(data.estimation, data.checklist)}
+        {getDependencies()}
       </div>
     </div>
   )
