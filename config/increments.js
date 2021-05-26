@@ -1,6 +1,6 @@
 export const incrementTypes = [
     {
-        type: 'flo',
+        type: 'flow',
         label: 'Parcours',
         hasCriterias: true,
         hasDiet: true,
