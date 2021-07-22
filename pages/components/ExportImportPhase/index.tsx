@@ -2,23 +2,30 @@ import JiraExport from './components/JiraExport'
 import { saveAs } from 'file-saver'
 import slug from 'slug'
 import styles from './styles.module.scss'
+import { UserStory } from '../../../model/types'
 
-const ExportImportPhase = ({ isCurrentPhase, data, onImport }) => {
-  const getJsonExport = () => {
-    return JSON.stringify(data, null, 4)
-  }
+type Props = {
+  isCurrentPhase: boolean,
+  story: UserStory,
+  onImport: (story: UserStory) => void,
+}
 
-  const downloadJsonExport = () => {
-    const blob = new Blob([getJsonExport()], { type: 'application/json' })
-    saveAs(blob, 'UserStory-' + slug(data.title)  + '.json');
-  }
+const getJsonExport: (story: UserStory) => string = (story) => {
+  return JSON.stringify(story, null, 4)
+}
 
-  const importFile = (file) => {
+const downloadJsonExport = (story: UserStory) => {
+  const blob = new Blob([getJsonExport(story)], { type: 'application/json' })
+  saveAs(blob, 'UserStory-' + slug(story.title)  + '.json');
+}
+
+const ExportImportPhase = ({ isCurrentPhase, story, onImport }: Props) => {
+  const importFile = (file: File) => {
     if (file) {
       const fileReader = new FileReader()
       fileReader.onloadend = () => {
         try {
-          onImport(JSON.parse(fileReader.result))
+          onImport(JSON.parse(fileReader.result as string))
         } catch (e) {
           alert('Fichier invalide')
         }
@@ -34,15 +41,15 @@ const ExportImportPhase = ({ isCurrentPhase, data, onImport }) => {
         <div className={styles.jira}>
           <h2>JIRA</h2>
           <p>Vous pouvez copier le code ci-dessous pour le coller dans des tickets JIRA.</p>
-          <JiraExport data={data} />
+          <JiraExport story={story} />
         </div>
         <div className={styles.json}>
           <h2>Export JSON</h2>
           <p>La US n'est pas terminée ? Exportez au format JSON pour la réimporter dans cet outil dans un futur grooming et la terminer.</p>
           <pre className="code">
-            {getJsonExport()}
+            {getJsonExport(story)}
           </pre>
-          <button onClick={() => downloadJsonExport()}>Télécharger</button>
+          <button onClick={() => downloadJsonExport(story)}>Télécharger</button>
 
           <h2>Importer JSON</h2>
           <div className="file-field-container">

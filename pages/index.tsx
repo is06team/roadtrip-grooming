@@ -12,76 +12,85 @@ import SolutionPhase from './components/SolutionPhase'
 import styles from './styles.module.scss'
 import Timer from './components/Timer'
 
-import { defaultData } from '../model/defaultData'
+import { defaultUserStoryData } from '../model/defaultUserStoryData'
+import { UserStory } from '../model/types'
 
-export const AppDataContext = createContext({ data: defaultData })
+type UserStoryContext = {
+  story: UserStory,
+  setStory: (story: UserStory) => void,
+}
 
-const Main = () => {
-  const [currentPhase, setCurrentPhase] = useState('')
-  const [data, setData] = useState(defaultData)
+export const GlobalUserStoryContext = createContext<UserStoryContext>({
+  story: {} as UserStory,
+  setStory: () => {}
+})
+
+const MainView = () => {
+  const [currentPhase, setCurrentPhase] = useState<string>('')
+  const [story, setStory] = useState<UserStory>(defaultUserStoryData)
 
   useEffect(() => {
     document.title = 'GroomingApp'
   }, [])
 
   return (
-    <div>
-      <AppDataContext.Provider value={{ data, setData }}>
+    <>
+      <GlobalUserStoryContext.Provider value={{ story, setStory }}>
         <div className={styles.UsTitle}>
           <h1>User story :</h1>
           <input
             type="text"
-            value={data.title}
+            value={story.title}
             id="user_story_title"
             name="user_story[title]"
             placeholder="Titre de la US"
-            onChange={(e) => setData({ ...data, title: e.target.value })} />
+            onChange={(e) => setStory({ ...story, title: e.target.value })} />
           <Timer></Timer>
-          <button onClick={() => setData(defaultData)}>Effacer tout</button>
+          <button onClick={() => setStory(defaultUserStoryData)}>Effacer tout</button>
         </div>
         <div className={styles.Main}>
           <Breadcrumb
-            data={data}
+            story={story}
             currentPhase={currentPhase}
             onChangePhase={(phase) => setCurrentPhase(phase)} />
           <div className="phases" id="phase-items">
             <NeedPhase isCurrentPhase={currentPhase === 'need'} />
             <SolutionPhase
               isCurrentPhase={currentPhase === 'solution'}
-              solution={data.solution}
-              onChange={(value) => setData({ ...data, solution: value })}
+              solution={story.solution}
+              onChange={(value) => setStory({ ...story, solution: value })}
               />
             <BusinessValuePhase
               isCurrentPhase={currentPhase === 'value'}
-              businessValue={data.value}
-              onChange={(value) => setData({ ...data, value: value })}
+              businessValue={story.value}
+              onChange={(value) => setStory({ ...story, value: value })}
               />
             <KpiPhase
               isCurrentPhase={currentPhase === 'kpis'}
-              kpis={data.kpis}
-              onChange={(value) => setData({ ...data, kpis: value })}
+              kpis={story.kpis}
+              onChange={(value) => setStory({ ...story, kpis: value })}
               />
             <EnablerPhase
               isCurrentPhase={currentPhase === 'enablers'}
-              enablers={data.enablers}
-              onChange={(enablers) => setData({ ...data, enablers: enablers })}
+              enablers={story.enablers}
+              onChange={(enablers) => setStory({ ...story, enablers: enablers })}
               />
             <AssetPhase
               isCurrentPhase={currentPhase === 'assets'}
-              assets={data.assets}
-              onChange={(value) => setData({ ...data, assets: value })}
+              assets={story.assets}
+              onChange={(value) => setStory({ ...story, assets: value })}
               />
             <IncrementPhase isCurrentPhase={currentPhase === 'increments'} />
             <ExportImportPhase
               isCurrentPhase={currentPhase === 'export'}
-              data={data}
-              onImport={(importData) => setData(importData)}
+              story={story}
+              onImport={(importData) => setStory(importData)}
               />
           </div>
         </div>
-      </AppDataContext.Provider>
-    </div>
+      </GlobalUserStoryContext.Provider>
+    </>
   )
 }
 
-export default Main
+export default MainView

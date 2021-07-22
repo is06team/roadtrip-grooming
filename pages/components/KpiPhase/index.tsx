@@ -1,4 +1,10 @@
-const KpiPhase = ({ isCurrentPhase, kpis, onChange }) => {
+type Props = {
+  isCurrentPhase: boolean,
+  kpis: string,
+  onChange: (kpis: string) => void,
+}
+
+const KpiPhase = ({ isCurrentPhase, kpis, onChange }: Props) => {
   return (
     <div style={{display: (isCurrentPhase == true ? 'block' : 'none') }}>
       <div className="phase-container">

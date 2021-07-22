@@ -1,80 +1,80 @@
 import React, { useState } from 'react'
 
-import Checklist from './components/Checklist'
-import Criteria from './components/Criteria'
+import ChecklistView from './components/Checklist'
+import CriteriaView from './components/Criteria'
 import Estimation from './components/Estimation'
 import styles from './styles.module.scss'
 import { v4 as uuidv4 } from 'uuid';
-
+import { Checklist, Criteria, Increment, IncrementType } from '../../../../../model/types'
 import { incrementTypes } from '../../../../../config/increments'
 
-const Increment = ({ id, type, estimation, checklist, notes, criterias, userStoryTitle, onChange, onDelete }) => {
-  const [ data, setData ] = useState({
+type Props = {
+  id: string,
+  type: IncrementType,
+  estimation: number,
+  checklist: Checklist,
+  notes: string,
+  criterias: Criteria[],
+  dependencies: string,
+  onChange: (increment: Increment) => void,
+  onDelete: (incrementId: string) => void,
+}
+
+const IncrementView = ({ id, type, estimation, checklist, notes, criterias, dependencies, onChange, onDelete }: Props) => {
+  const [ increment, setIncrement ] = useState<Increment>({
     id: id,
     type: type,
     estimation: estimation,
     checklist: checklist,
     notes: notes,
     criterias: criterias,
-    dependencies: ''
+    dependencies: dependencies,
   })
 
-  const handleChangeData = (newData) => {
-    setData(newData)
+  const handleChangeIncrementData = (newData: Increment) => {
+    setIncrement(newData)
     onChange(newData)
   }
 
   const getCurrentIncrementType = () => {
     for (const incrementType of incrementTypes) {
-      if (incrementType.type === data.type) {
+      if (incrementType.type === increment.type) {
         return incrementType
       }
     }
     return null
   }
 
-  /**
-   * Add a criteria into the increment
-   */
   const addCriteria = () => {
-    let criterias = data.criterias
+    let criterias = increment.criterias
     criterias.push({ id: uuidv4(), title: '', gherkin: '' })
-    setData({ ...data, criterias: criterias })
-    onChange({ ...data, criterias: criterias })
+    setIncrement({ ...increment, criterias: criterias })
+    onChange({ ...increment, criterias: criterias })
   }
 
-  /**
-   * Update a criteria data with a specific id
-   * @param {uuid} id 
-   * @param {Object} value 
-   */
-  const updateCriteria = (id, value) => {
-    let criterias = data.criterias
+  const updateCriteria = (id: string, value: Criteria) => {
+    let criterias = increment.criterias
     for (const index in criterias) {
       if (id === criterias[index].id) {
         criterias[index] = value
       }
     }
-    setData({ ...data, criterias: criterias })
-    onChange({ ...data, criterias: criterias })
+    setIncrement({ ...increment, criterias: criterias })
+    onChange({ ...increment, criterias: criterias })
   }
 
-  /**
-   * Remove a criteria with a specific id 
-   * @param {uuid} id
-   */
-  const deleteCriteria = (id) => {
+  const deleteCriteria = (criteriaId: string) => {
     let criterias = []
-    for (const index in data.criterias) {
-      if (id !== data.criterias[index].id) {
-        criterias[index] = data.criterias[index]
+    for (const index in increment.criterias) {
+      if (criteriaId !== increment.criterias[index].id) {
+        criterias[index] = increment.criterias[index]
       }
     }
-    setData({ ...data, criterias: criterias })
-    onChange({ ...data, criterias: criterias })
+    setIncrement({ ...increment, criterias: criterias })
+    onChange({ ...increment, criterias: criterias })
   }
 
-  const getCriterias = (criterias) => {
+  const getCriterias = (criterias: Criteria[]) => {
     const currentIncrementType = getCurrentIncrementType()
     if (currentIncrementType && currentIncrementType.hasCriterias) {
       return (
@@ -83,7 +83,7 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, userStor
           <div className={styles.criterias}>
             {criterias.map(criteria => {
               return (
-                <Criteria
+                <CriteriaView
                   id={criteria.id}
                   key={criteria.id}
                   title={criteria.title}
@@ -101,12 +101,12 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, userStor
     return null
   }
 
-  const updateNotes = (notes) => {
-    setData({ ...data, notes: notes })
-    onChange({ ...data, notes: notes })
+  const updateNotes = (notes: string) => {
+    setIncrement({ ...increment, notes: notes })
+    onChange({ ...increment, notes: notes })
   }
 
-  const getNotes = (notes) => {
+  const getNotes = (notes: string) => {
     const currentIncrementType = getCurrentIncrementType()
     if (currentIncrementType && currentIncrementType.hasNotes) {
       return (
@@ -124,18 +124,18 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, userStor
     return null
   }
 
-  const updateChecklist = (checklist) => {
-    setData({ ...data, checklist: checklist })
-    onChange({ ...data, checklist: checklist })
+  const updateChecklist = (checklist: Checklist) => {
+    setIncrement({ ...increment, checklist: checklist })
+    onChange({ ...increment, checklist: checklist })
   }
 
-  const getSecondary = (estimation, checklist) => {
+  const getSecondary = (estimation: number, checklist: Checklist) => {
     const currentIncrementType = getCurrentIncrementType()
     if (currentIncrementType && (currentIncrementType.hasEstimation || currentIncrementType.hasDiet)) {
       return (
         <div className={styles.secondary}>
           {currentIncrementType.hasDiet &&
-            <Checklist
+            <ChecklistView
               checklist={checklist}
               onChange={(value) => updateChecklist(value)}
               />
@@ -143,8 +143,7 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, userStor
           {currentIncrementType.hasEstimation &&
             <Estimation
               estimation={estimation}
-              incrementName={userStoryTitle + ' : ' + currentIncrementType.type}
-              onChange={(newEstimation) => handleChangeData({ ...data, estimation: newEstimation })}
+              onChange={(newEstimation) => handleChangeIncrementData({ ...increment, estimation: newEstimation })}
               />
           }
         </div>
@@ -154,8 +153,8 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, userStor
   }
 
   const updateDependencies = (dependencies) => {
-    setData({ ...data, dependencies: dependencies })
-    onChange({ ...data, dependencies: dependencies })
+    setIncrement({ ...increment, dependencies: dependencies })
+    onChange({ ...increment, dependencies: dependencies })
   }
 
   const getDependencies = () => {
@@ -166,7 +165,7 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, userStor
           <div className={styles.dependencies}>
             <div className="field">
               <label>Dépendant de :</label>
-              <input type="text" value={data.dependencies} onChange={(e) => updateDependencies(e.target.value)} />
+              <input type="text" value={increment.dependencies} onChange={(e) => updateDependencies(e.target.value)} />
             </div>
           </div>
         }
@@ -174,9 +173,13 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, userStor
     )
   }
 
-  const getTypeSelector = (currentType) => {
+  const getTypeSelector = (currentType: IncrementType) => {
     return (
-      <select className="title user_story_increment_type" name="type" value={currentType} onChange={(e) => handleChangeData({ ...data, type: e.target.value })}>
+      <select
+        className="title user_story_increment_type"
+        name="type"
+        value={currentType.valueOf()}
+        onChange={(event) => handleChangeIncrementData({ ...increment, type: event.target.value as IncrementType })}>
         <option value="none">- Choisissez le type</option>
         {incrementTypes.map((type) => <option value={type.type}>{type.label}</option>)}
       </select>
@@ -189,19 +192,19 @@ const Increment = ({ id, type, estimation, checklist, notes, criterias, userStor
         <div className={styles.title}>
           <h2>
             <span>Incrément</span>
-            {getTypeSelector(data.type)}
+            {getTypeSelector(increment.type)}
           </h2>
-          <button className="title" onClick={() => onDelete(data.id)}>Supprimer</button>
+          <button className="title" onClick={() => onDelete(increment.id)}>Supprimer</button>
         </div>
         <div className={styles.content}>
-          {getCriterias(data.criterias)}
-          {getNotes(data.notes)}
+          {getCriterias(increment.criterias)}
+          {getNotes(increment.notes)}
         </div>
-        {getSecondary(data.estimation, data.checklist)}
+        {getSecondary(increment.estimation, increment.checklist)}
         {getDependencies()}
       </div>
     </div>
   )
 }
 
-export default Increment
+export default IncrementView

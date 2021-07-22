@@ -1,70 +1,52 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 
-import { AppDataContext } from '../../'
-import Increment from './components/Increment'
+import { GlobalUserStoryContext } from '../..'
+import { Increment, IncrementType } from '../../../model/types'
+import IncrementView from './components/Increment'
 import styles from './styles.module.scss'
 import { v4 as uuidv4 } from 'uuid';
 
-const IncrementPhase = ({ isCurrentPhase }) => {
-  const { data, setData } = useContext(AppDataContext)
+type Props = {
+  isCurrentPhase: boolean,
+}
 
-  /**
-   * Add an increment into the user story
-   */
+const IncrementPhase = ({ isCurrentPhase }: Props) => {
+  const { story, setStory } = useContext(GlobalUserStoryContext)
+
   const addIncrement = () => {
-    let increments = data.increments
+    let increments = story.increments
     increments.push({
       id: uuidv4(),
-      type: 'none',
+      type: IncrementType.none,
       estimation: 0,
       checklist: { d: false, i: false, e: false, t: false },
       notes: '',
+      dependencies: '',
       criterias: [],
     })
-    setData({
-      ...data,
-      increments: increments
-    })
+    setStory({ ...story, increments: increments })
   }
 
-  /**
-   * Update an increment data with a specific id
-   * @param {uuid} id 
-   * @param {Object} value 
-   */
-  const updateIncrement = (id, value) => {
-    let increments = data.increments
+  const updateIncrement = (id: string, value: Increment) => {
+    let increments = story.increments
     for (const index in increments) {
       if (id === increments[index].id) {
         increments[index] = value
       }
     }
-    setData({
-      ...data,
-      increments: increments
-    })
+    setStory({ ...story, increments: increments })
   }
 
-  /**
-   * Remove an increment with a specific id
-   * @param {uuid} id 
-   */
-  const deleteIncrement = (id) => {
+  const deleteIncrement = (incrementId: string) => {
     let increments = []
-    for (const index in data.increments) {
-      if (id !== data.increments[index].id) {
-        increments[index] = data.increments[index]
+    for (const index in story.increments) {
+      if (incrementId !== story.increments[index].id) {
+        increments[index] = story.increments[index]
       }
     }
-    setData({
-      ...data,
-      increments: increments
-    })
+    setStory({ ...story, increments: increments })
   }
 
-  /**
-   * Rendering
-   */
   return (
     <div style={{display: (isCurrentPhase == true ? 'block' : 'none') }}>
       <div className={styles.Increments}>
@@ -72,9 +54,9 @@ const IncrementPhase = ({ isCurrentPhase }) => {
           <div className="phase-main">
             <h1>Incréments de la US</h1>
             <div className={styles.list} id="user_story_increments">
-              {data.increments.map(increment => {
+              {story.increments.map(increment => {
                 return (
-                  <Increment
+                  <IncrementView
                     id={increment.id}
                     key={increment.id}
                     type={increment.type}
@@ -82,7 +64,7 @@ const IncrementPhase = ({ isCurrentPhase }) => {
                     checklist={increment.checklist}
                     criterias={increment.criterias}
                     notes={increment.notes}
-                    userStoryTitle={data.title}
+                    dependencies={increment.dependencies}
                     onChange={(value) => updateIncrement(increment.id, value)}
                     onDelete={(id) => deleteIncrement(id)}
                     />

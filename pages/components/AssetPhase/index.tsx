@@ -1,4 +1,10 @@
-const AssetPhase = ({ isCurrentPhase, assets, onChange }) => {
+type Props = {
+  isCurrentPhase: boolean,
+  assets: string,
+  onChange: (value: string) => void
+}
+
+const AssetPhase = ({ isCurrentPhase, assets, onChange }: Props) => {
   return (
     <div style={{display: (isCurrentPhase == true ? 'block' : 'none') }}>
       <div className="phase-container">

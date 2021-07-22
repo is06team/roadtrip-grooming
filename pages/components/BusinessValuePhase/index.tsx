@@ -1,12 +1,18 @@
-const BusinessValuePhase = ({ isCurrentPhase, businessValue, onChange }) => {
-  const getValueItems = () => {
-    let items = [<option key={'value_item_none'}>- Choisissez</option>]
-    for (let i = 5; i <= 100; i += 5) {
-      items.push(<option key={'value_item_' + i} value={i}>{i}</option>)
-    }
-    return items
-  }
+type Props = {
+  isCurrentPhase: boolean,
+  businessValue: number,
+  onChange: (value: number) => void,
+}
 
+const getValueItems: () => JSX.Element[] = () => {
+  let items = [<option key={'value_item_none'}>- Choisissez</option>]
+  for (let i = 5; i <= 100; i += 5) {
+    items.push(<option key={'value_item_' + i} value={i}>{i}</option>)
+  }
+  return items
+}
+
+const BusinessValuePhase = ({ isCurrentPhase, businessValue, onChange }: Props) => {
   return (
     <div style={{display: (isCurrentPhase == true ? 'block' : 'none') }}>
       <div className="phase-container">

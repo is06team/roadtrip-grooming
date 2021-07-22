@@ -1,6 +1,12 @@
 import styles from './styles.module.scss'
 
-const EnablerPhase = ({ isCurrentPhase, enablers, onChange }) => {
+type Props = {
+  isCurrentPhase: boolean,
+  enablers: string,
+  onChange: (enablers: string) => void,
+}
+
+const EnablerPhase = ({ isCurrentPhase, enablers, onChange }: Props) => {
   return (
     <div style={{display: (isCurrentPhase == true ? 'block' : 'none') }}>
       <div className="phase-container">

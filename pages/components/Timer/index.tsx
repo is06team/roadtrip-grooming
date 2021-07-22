@@ -3,20 +3,20 @@ import styles from './styles.module.scss'
 
 const defaultSeconds = 300
 
-const Timer = () => {
-  const [seconds, setSeconds] = useState(defaultSeconds);
-  const [active, setActive] = useState(false);
+const format: (seconds: number) => string = (seconds) => {
+  const m = Math.floor(seconds / 60)
+  const s = seconds % 60
+  const formattedSeconds = (s < 10) ? "0" + s : s
+  return m + ':' + formattedSeconds
+}
 
-  const format = (seconds) => {
-    const m = Math.floor(seconds / 60)
-    let s = seconds % 60
-    if (s < 10) s = "0" + s
-    return m + ':' + s
-  }
+const progressWidth: (seconds: number) => string = (seconds) => {
+  return (seconds / defaultSeconds) * 100 + '%'
+}
 
-  const progressWidth = (seconds) => {
-    return (seconds / defaultSeconds) * 100 + '%'
-  }
+const TimerView = () => {
+  const [seconds, setSeconds] = useState<number>(defaultSeconds);
+  const [active, setActive] = useState<boolean>(false);
 
   const startPause = () => {
     setActive(active => !active)
@@ -56,4 +56,4 @@ const Timer = () => {
   );
 };
 
-export default Timer;
+export default TimerView;

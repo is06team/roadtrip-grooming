@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
-
-import { AppDataContext } from '../../../../../../'
+import { Checklist } from '../../../../../../../model/types'
 import styles from './styles.module.scss'
 
-const defaultChecklist = {
-    d: '',
-    i: '',
-    e: '',
-    t: '',
+type Props = {
+  checklist: Checklist,
+  onChange: (checklist: Checklist) => void,
 }
 
-const Checklist = ({ checklist = defaultChecklist, onChange }) => {
-  /**
-   * Initial data
-   */
+const defaultChecklist: Checklist = {
+  d: false,
+  i: false,
+  e: false,
+  t: false,
+}
+
+const ChecklistView = ({ checklist = defaultChecklist, onChange }: Props) => {
   const [data, setData] = useState({
     d: checklist.d,
     i: checklist.i,
@@ -21,14 +22,11 @@ const Checklist = ({ checklist = defaultChecklist, onChange }) => {
     t: checklist.t,
   })
 
-  const updateItem = (field, value) => {
+  const updateItem = (field: string, value: boolean) => {
     setData({ ...data, [field]: value })
     onChange({ ...data, [field]: value })
   }
-
-  /**
-   * Rendering
-   */
+  
   return (
     <div className={styles.DIET}>
       <span className="checkField">
@@ -36,7 +34,7 @@ const Checklist = ({ checklist = defaultChecklist, onChange }) => {
         <input
           type="checkbox"
           className="user_story_increment_diet_d"
-          checked={data.d ? 'checked' : ''}
+          checked={data.d}
           onChange={(e) => updateItem('d', e.target.checked)}
           />
         <label>D</label>
@@ -75,4 +73,4 @@ const Checklist = ({ checklist = defaultChecklist, onChange }) => {
   )
 }
 
-export default Checklist
+export default ChecklistView
