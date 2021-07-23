@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import { GlobalUserStoryContext } from '../..'
 import { Increment, IncrementType } from '../../../model/types'
@@ -14,37 +14,40 @@ const IncrementPhase = ({ isCurrentPhase }: Props) => {
   const { story, setStory } = useContext(GlobalUserStoryContext)
 
   const addIncrement = () => {
-    let increments = story.increments
-    increments.push({
-      id: uuidv4(),
-      type: IncrementType.none,
-      estimation: 0,
-      checklist: { d: false, i: false, e: false, t: false },
-      notes: '',
-      dependencies: '',
-      criterias: [],
+    const increments = story.increments
+    setStory({
+      ...story,
+      increments: [
+        ...increments, {
+          id: uuidv4(),
+          type: IncrementType.none,
+          estimation: 0,
+          checklist: { d: false, i: false, e: false, t: false },
+          notes: '',
+          dependencies: '',
+          criterias: [],
+        }
+      ]
     })
-    setStory({ ...story, increments: increments })
   }
 
   const updateIncrement = (id: string, value: Increment) => {
-    let increments = story.increments
-    for (const index in increments) {
-      if (id === increments[index].id) {
-        increments[index] = value
-      }
-    }
-    setStory({ ...story, increments: increments })
+    setStory({
+      ...story,
+      increments: story.increments.map(increment => {
+        if (increment.id !== id) {
+          return increment
+        }
+        return value
+      })
+    })
   }
 
   const deleteIncrement = (incrementId: string) => {
-    let increments = []
-    for (const index in story.increments) {
-      if (incrementId !== story.increments[index].id) {
-        increments[index] = story.increments[index]
-      }
-    }
-    setStory({ ...story, increments: increments })
+    setStory({
+      ...story,
+      increments: story.increments.filter(({ id }) => id !== incrementId)
+    })
   }
 
   return (

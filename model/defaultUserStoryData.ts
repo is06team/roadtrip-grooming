@@ -1,4 +1,4 @@
-import { UserStory, Need, Increment } from './types'
+import { UserStory } from './types'
 
 export const defaultUserStoryData: UserStory = {
   title: '',
