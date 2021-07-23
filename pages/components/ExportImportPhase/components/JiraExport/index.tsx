@@ -37,7 +37,7 @@ const getIncrement: (story: UserStory, increment: Increment) => JSX.Element = (s
     <div className={styles.increment}>
       <h3>{story.title} : {getIncrementTypeLabel(increment.type)} (Ticket "Story increment")</h3>
       {increment.estimation > 0 && (<div><strong>Estimation</strong> : {increment.estimation}</div>)}
-      {increment.estimation > 0 && (<div><strong>ROI</strong> : {parseInt(story.value / increment.estimation)}</div>)}
+      {increment.estimation > 0 && (<div><strong>ROI</strong> : {story.value / increment.estimation}</div>)}
       {(increment.type !== 'release') && getChecklist(increment.checklist)}
       
       <textarea className="code" value={incrementString}></textarea>
