@@ -1,6 +1,17 @@
-export const incrementTypes = [
+import { IncrementType, IncrementTypeConfig } from "../model/types"
+
+export const incrementTypes: IncrementTypeConfig[] = [
     {
-        type: 'flow',
+        id: 'none',
+        label: '---',
+        hasCriterias: false,
+        hasDiet: false,
+        hasEstimation: false,
+        hasNotes: false,
+        hasDependencies: false
+    },
+    {
+        id: 'flow',
         label: 'Parcours',
         hasCriterias: true,
         hasDiet: true,
@@ -9,7 +20,7 @@ export const incrementTypes = [
         hasDependencies: true
     },
     {
-        type: 'tracking',
+        id: 'tracking',
         label: 'Tracking',
         hasCriterias: true,
         hasDiet: true,
@@ -18,7 +29,7 @@ export const incrementTypes = [
         hasDependencies: true
     },
     {
-        type: 'gdpr',
+        id: 'gdpr',
         label: 'GDPR',
         hasCriterias: true,
         hasDiet: true,
@@ -27,7 +38,7 @@ export const incrementTypes = [
         hasDependencies: true
     },
     {
-        type: 'ui',
+        id: 'ui',
         label: 'UI/UX',
         hasCriterias: false,
         hasDiet: true,
@@ -36,7 +47,7 @@ export const incrementTypes = [
         hasDependencies: true
     },
     {
-        type: 'release',
+        id: 'release',
         label: 'Release',
         hasCriterias: false,
         hasDiet: false,
@@ -46,8 +57,8 @@ export const incrementTypes = [
     },
 ]
 
-export const getIncrementTypeLabel = (type) => {
-    const t = incrementTypes.filter(incrementType => incrementType.type === type)[0]
+export const getIncrementTypeLabel = (type: IncrementType) => {
+    const t = incrementTypes.filter(incrementType => incrementType.id === type.valueOf())[0]
     if (t === undefined) {
         return ''
     }

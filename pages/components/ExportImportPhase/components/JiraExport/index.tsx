@@ -34,7 +34,7 @@ const getIncrement: (story: UserStory, increment: Increment) => JSX.Element = (s
   }
 
   return (
-    <div className={styles.increment}>
+    <div className={styles.increment} key={"increment_" + increment.id}>
       <h3>{story.title} : {getIncrementTypeLabel(increment.type)} (Ticket "Story increment")</h3>
       {increment.estimation > 0 && (<div><strong>Estimation</strong> : {increment.estimation}</div>)}
       {increment.estimation > 0 && (<div><strong>ROI</strong> : {story.value / increment.estimation}</div>)}
@@ -95,9 +95,6 @@ const JiraExport = ({story = defaultUserStoryData}: Props) => {
         <textarea className="code" readOnly value={getNeed(story)}>
         </textarea>
       </div>
-
-      <h3>Enablers</h3>
-      {story.enablers.split('\n').map(enabler => getEnabler(enabler))}
 
       {story.increments.map(increment => getIncrement(story, increment))}
     </div>

@@ -21,7 +21,7 @@ type UserStoryContext = {
 }
 
 export const GlobalUserStoryContext = createContext<UserStoryContext>({
-  story: {} as UserStory,
+  story: defaultUserStoryData,
   setStory: () => {}
 })
 

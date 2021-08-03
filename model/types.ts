@@ -26,9 +26,22 @@ export interface Increment {
 }
 
 export enum IncrementType {
-    none = '',
+    none = 'none',
     flow = 'flow',
+    tracking = 'tracking',
+    gdpr = 'gdpr',
+    ui = 'ui',
     release = 'release'
+}
+
+export interface IncrementTypeConfig {
+    id: string,
+    label: string,
+    hasCriterias: boolean,
+    hasDiet: boolean,
+    hasEstimation: boolean,
+    hasNotes: boolean,
+    hasDependencies: boolean
 }
 
 export interface Criteria {
