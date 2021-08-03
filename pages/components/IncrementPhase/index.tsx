@@ -78,7 +78,7 @@ const IncrementPhase = ({ isCurrentPhase }: Props) => {
           </div>
           <div className="phase-guides">
             <h3>Les incréments</h3>
-            <p>Les incréments sont des "sous-US" qui nous permettent de découper fonctionnellement
+            <p>Les incréments sont des <strong>"sous-US"</strong> qui nous permettent de découper fonctionnellement
               et d'améliorer notre fiabilité de delivery au cours du sprint.
             </p>
 
@@ -92,6 +92,13 @@ const IncrementPhase = ({ isCurrentPhase }: Props) => {
             <p>Les critères d'acceptation permettent de vérifier que la fonctionnalité correspond
               à la <strong>solution fonctionnelle</strong> choisie.
             </p>
+
+            <h3>Points de vigilance</h3>
+            <p>Penser à...</p>
+            <ul>
+              <li><strong>Plusieurs clics</strong> sur les <strong>boutons</strong> de soumission de formulaire</li>
+              <li><strong>Cas d'erreur</strong> ou indisponibilité des <strong>services tiers</strong></li>
+            </ul>
 
             <h3>DIET</h3>
             <p>Pour chaque incrément (lorsqu'il est éligible), on peut définir si il est :</p>
