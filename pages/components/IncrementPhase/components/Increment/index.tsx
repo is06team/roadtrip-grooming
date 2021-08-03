@@ -20,7 +20,7 @@ type Props = {
   onDelete: (incrementId: string) => void,
 }
 
-const IncrementView = ({ id, type, estimation, checklist, notes, criterias, dependencies, onChange, onDelete }: Props) => {
+const IncrementView = ({ id, type = IncrementType.none, estimation, checklist, notes, criterias, dependencies, onChange, onDelete }: Props) => {
   const [ increment, setIncrement ] = useState<Increment>({
     id: id,
     type: type,
@@ -38,7 +38,7 @@ const IncrementView = ({ id, type, estimation, checklist, notes, criterias, depe
 
   const getCurrentIncrementType = () => {
     for (const incrementType of incrementTypes) {
-      if (incrementType.type === increment.type) {
+      if (incrementType.id === increment.type) {
         return incrementType
       }
     }
@@ -152,7 +152,7 @@ const IncrementView = ({ id, type, estimation, checklist, notes, criterias, depe
     return null
   }
 
-  const updateDependencies = (dependencies) => {
+  const updateDependencies = (dependencies: string) => {
     setIncrement({ ...increment, dependencies: dependencies })
     onChange({ ...increment, dependencies: dependencies })
   }
@@ -181,7 +181,7 @@ const IncrementView = ({ id, type, estimation, checklist, notes, criterias, depe
         value={currentType.valueOf()}
         onChange={(event) => handleChangeIncrementData({ ...increment, type: event.target.value as IncrementType })}>
         <option value="none">- Choisissez le type</option>
-        {incrementTypes.map((type) => <option value={type.type}>{type.label}</option>)}
+        {incrementTypes.map((type) => <option value={type.id}>{type.label}</option>)}
       </select>
     )
   }
