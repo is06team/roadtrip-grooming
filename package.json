@@ -1,6 +1,7 @@
 {
   "name": "roadtrip-grooming-app",
   "version": "1.0.0",
+  "description": "FT Roadtrip grooming application",
   "private": true,
   "scripts": {
     "dev": "next dev",
