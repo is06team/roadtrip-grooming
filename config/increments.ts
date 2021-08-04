@@ -57,7 +57,7 @@ export const incrementTypes: IncrementTypeConfig[] = [
     },
 ]
 
-export const getIncrementTypeLabel = (type: IncrementType) => {
+export const getIncrementTypeLabel: (type: IncrementType) => string = (type) => {
     const t = incrementTypes.filter(incrementType => incrementType.id === type.valueOf())[0]
     if (t === undefined) {
         return ''

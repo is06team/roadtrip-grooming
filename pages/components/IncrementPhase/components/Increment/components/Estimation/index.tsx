@@ -3,6 +3,7 @@ import styles from './styles.module.scss';
 
 type Props = {
   estimation: number,
+  incrementTypeName: string,
   onChange: (estimation: number) => void,
 }
 
@@ -16,12 +17,11 @@ const copySlackPollToClipboard = (incrementName: string) => {
   pollText += '"for a complexity of 8" '
   pollText += '"for a complexity of 13" '
   pollText += '"for a complexity of 21" '
-  pollText += '"HIGHHHHHHHEEEEEEEER" '
   pollText += ' limit 1'
   navigator.clipboard.writeText(pollText)
 }
 
-const Estimation = ({ estimation, onChange }: Props) => {
+const Estimation = ({ estimation, incrementTypeName, onChange }: Props) => {
   return (
     <div className={styles.Estimation}>
       <label>Estimation</label>
@@ -36,7 +36,7 @@ const Estimation = ({ estimation, onChange }: Props) => {
         <option>13</option>
         <option>21</option>
       </select>
-      <button className="slackPoll" onClick={() => copySlackPollToClipboard}><i className="fab fa-slack"></i></button>
+      <button className="slackPoll" onClick={() => copySlackPollToClipboard(incrementTypeName)}><i className="fab fa-slack"></i></button>
     </div>
   )
 }

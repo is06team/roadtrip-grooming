@@ -1,4 +1,4 @@
-export const criteriaDictionary = [
+export const criteriaDictionary: string[] = [
     "GIVEN je suis un acheteur",
     "GIVEN je suis un vendeur",
     "WHEN je clique sur le bouton",

@@ -143,6 +143,7 @@ const IncrementView = ({ id, type = IncrementType.none, estimation, checklist, n
           {currentIncrementType.hasEstimation &&
             <Estimation
               estimation={estimation}
+              incrementTypeName={type.valueOf()}
               onChange={(newEstimation) => handleChangeIncrementData({ ...increment, estimation: newEstimation })}
               />
           }
