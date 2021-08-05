@@ -1,9 +1,9 @@
 import styles from './styles.module.scss'
-import { defaultUserStoryData } from '../../../model/defaultUserStoryData'
-import { UserStory, Need } from '../../../model/types'
+import { Need } from '../../../model/types'
+import { useContext } from 'react'
+import { GlobalUserStoryContext } from '../..'
 
 type Props = {
-  story: UserStory,
   currentPhase: string,
   onChangePhase: (phase: string) => void,
 }
@@ -40,7 +40,9 @@ const getRecap = (itemName: string, itemData: Need | string) => {
   )
 }
 
-const BreadcrumbView = ({ story = defaultUserStoryData, currentPhase, onChangePhase }: Props) => {
+const BreadcrumbView = ({ currentPhase, onChangePhase }: Props) => {
+  const { story } = useContext(GlobalUserStoryContext)
+
   return (
     <div className={styles.Breadcrumb}>
       <h2>Pré-grooming :</h2>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import ChecklistView from './components/Checklist'
 import CriteriaView from './components/Criteria'
@@ -89,7 +89,7 @@ const IncrementView = ({ id, type = IncrementType.none, estimation, checklist, n
                   title={criteria.title}
                   gherkin={criteria.gherkin}
                   onChange={(value) => updateCriteria(criteria.id, value)}
-                  onDelete={(id) => deleteCriteria(id) }
+                  onDelete={(id) => deleteCriteria(id)}
                   />
               )
             })}

@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useEffect, useState } from 'react'
 
 import AssetPhase from './components/AssetPhase'
 import Breadcrumb from './components/Breadcrumb'
@@ -50,42 +50,17 @@ const MainView = () => {
         </div>
         <div className={styles.Main}>
           <Breadcrumb
-            story={story}
             currentPhase={currentPhase}
-            onChangePhase={(phase) => setCurrentPhase(phase)} />
+            onChangePhase={useCallback((phase) => setCurrentPhase(phase), [])} />
           <div className="phases" id="phase-items">
-            <NeedPhase isCurrentPhase={currentPhase === 'need'} />
-            <SolutionPhase
-              isCurrentPhase={currentPhase === 'solution'}
-              solution={story.solution}
-              onChange={(value) => setStory({ ...story, solution: value })}
-              />
-            <BusinessValuePhase
-              isCurrentPhase={currentPhase === 'value'}
-              businessValue={story.value}
-              onChange={(value) => setStory({ ...story, value: value })}
-              />
-            <KpiPhase
-              isCurrentPhase={currentPhase === 'kpis'}
-              kpis={story.kpis}
-              onChange={(value) => setStory({ ...story, kpis: value })}
-              />
-            <EnablerPhase
-              isCurrentPhase={currentPhase === 'enablers'}
-              enablers={story.enablers}
-              onChange={(enablers) => setStory({ ...story, enablers: enablers })}
-              />
-            <AssetPhase
-              isCurrentPhase={currentPhase === 'assets'}
-              assets={story.assets}
-              onChange={(value) => setStory({ ...story, assets: value })}
-              />
-            <IncrementPhase isCurrentPhase={currentPhase === 'increments'} />
-            <ExportImportPhase
-              isCurrentPhase={currentPhase === 'export'}
-              story={story}
-              onImport={(importData) => setStory(importData)}
-              />
+            {currentPhase === 'need' && <NeedPhase />}
+            {currentPhase === 'solution' && <SolutionPhase />}
+            {currentPhase === 'value' && <BusinessValuePhase />}
+            {currentPhase === 'kpis' && <KpiPhase />}
+            {currentPhase === 'enablers' && <EnablerPhase />}
+            {currentPhase === 'assets' && <AssetPhase />}
+            {currentPhase === 'increments' && <IncrementPhase />}
+            {currentPhase === 'export' && <ExportImportPhase />}
           </div>
         </div>
       </GlobalUserStoryContext.Provider>

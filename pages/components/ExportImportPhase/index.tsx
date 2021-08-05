@@ -3,12 +3,8 @@ import { saveAs } from 'file-saver'
 import slug from 'slug'
 import styles from './styles.module.scss'
 import { UserStory } from '../../../model/types'
-
-type Props = {
-  isCurrentPhase: boolean,
-  story: UserStory,
-  onImport: (story: UserStory) => void,
-}
+import { useContext } from 'react'
+import { GlobalUserStoryContext } from '../..'
 
 const getJsonExport: (story: UserStory) => string = (story) => {
   return JSON.stringify(story, null, 4)
@@ -19,13 +15,15 @@ const downloadJsonExport = (story: UserStory) => {
   saveAs(blob, 'UserStory-' + slug(story.title)  + '.json');
 }
 
-const ExportImportPhase = ({ isCurrentPhase, story, onImport }: Props) => {
+const ExportImportPhase = () => {
+  const { story, setStory } = useContext(GlobalUserStoryContext)
+
   const importFile = (file: File) => {
     if (file) {
       const fileReader = new FileReader()
       fileReader.onloadend = () => {
         try {
-          onImport(JSON.parse(fileReader.result as string))
+          setStory(JSON.parse(fileReader.result as string))
         } catch (e) {
           alert('Fichier invalide')
         }
@@ -35,7 +33,7 @@ const ExportImportPhase = ({ isCurrentPhase, story, onImport }: Props) => {
   }
 
   return (
-    <div style={{display: (isCurrentPhase == true ? 'block' : 'none') }}>
+    <>
       <h1>Exporter / Importer</h1>
       <div className={styles.content}>
         <div className={styles.jira}>
@@ -63,7 +61,7 @@ const ExportImportPhase = ({ isCurrentPhase, story, onImport }: Props) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

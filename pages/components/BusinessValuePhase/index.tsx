@@ -1,8 +1,5 @@
-type Props = {
-  isCurrentPhase: boolean,
-  businessValue: number,
-  onChange: (value: number) => void,
-}
+import { useContext } from "react"
+import { GlobalUserStoryContext } from "../.."
 
 const getValueItems: () => JSX.Element[] = () => {
   let items = [<option key={'value_item_none'}>- Choisissez</option>]
@@ -12,28 +9,28 @@ const getValueItems: () => JSX.Element[] = () => {
   return items
 }
 
-const BusinessValuePhase = ({ isCurrentPhase, businessValue, onChange }: Props) => {
+const BusinessValuePhase = () => {
+  const { story, setStory } = useContext(GlobalUserStoryContext)
+
   return (
-    <div style={{display: (isCurrentPhase == true ? 'block' : 'none') }}>
-      <div className="phase-container">
-        <div className="phase-main">
-          <h1>Valeur métier</h1> 
-          <fieldset>
-            <select
-              className="big"
-              id="user_story_business_value"
-              value={businessValue}
-              onChange={(e) => onChange(parseInt(e.target.value))}>
-              {getValueItems()}
-            </select>
-          </fieldset>
-        </div>
-        <div className="phase-guides">
-          <h3>Objectif</h3>
-          <p>La valeur métier aide à prioriser les US à réaliser.
-            Elle permet aussi d'identifier quelles sont les fonctionnalités qui apportent
-            beaucoup de valeur à nos utilisateurs.</p>
-        </div>
+    <div className="phase-container">
+      <div className="phase-main">
+        <h1>Valeur métier</h1> 
+        <fieldset>
+          <select
+            className="big"
+            id="user_story_business_value"
+            value={story.value}
+            onChange={(e) => setStory({ ...story, value: parseInt(e.target.value) })}>
+            {getValueItems()}
+          </select>
+        </fieldset>
+      </div>
+      <div className="phase-guides">
+        <h3>Objectif</h3>
+        <p>La valeur métier aide à prioriser les US à réaliser.
+          Elle permet aussi d'identifier quelles sont les fonctionnalités qui apportent
+          beaucoup de valeur à nos utilisateurs.</p>
       </div>
     </div>
   )
