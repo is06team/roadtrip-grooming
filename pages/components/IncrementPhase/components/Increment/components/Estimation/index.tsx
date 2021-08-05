@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './styles.module.scss';
 
 type Props = {
@@ -22,6 +22,22 @@ const copySlackPollToClipboard = (incrementName: string) => {
 }
 
 const Estimation = ({ estimation, incrementTypeName, onChange }: Props) => {
+  const [ slackCopied, setSlackCopied ] = useState(false)
+
+  const handleSlackCopy = () => {
+    setSlackCopied(true)
+    copySlackPollToClipboard(incrementTypeName)
+  }
+
+  useEffect(() => {
+    if (slackCopied) {
+      const timeout = setTimeout(() => {
+        setSlackCopied(false)
+        clearTimeout(timeout)
+      }, 5000)
+    }
+  }, [slackCopied])
+
   return (
     <div className={styles.Estimation}>
       <label>Estimation</label>
@@ -36,7 +52,10 @@ const Estimation = ({ estimation, incrementTypeName, onChange }: Props) => {
         <option>13</option>
         <option>21</option>
       </select>
-      <button className="slackPoll" onClick={() => copySlackPollToClipboard(incrementTypeName)}><i className="fab fa-slack"></i></button>
+      <button className={"slackPoll" + (slackCopied ? ' copied' : '')} onClick={handleSlackCopy}>
+        <i className="fab fa-slack"></i>
+        <span className="label">{slackCopied ? 'Copié !' : 'Copier poll Slack'}</span>
+      </button>
     </div>
   )
 }
