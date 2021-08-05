@@ -37,9 +37,7 @@ const ExportImportPhase = () => {
       <h1>Exporter / Importer</h1>
       <div className={styles.content}>
         <div className={styles.jira}>
-          <h2>JIRA</h2>
-          <p>Vous pouvez copier le code ci-dessous pour le coller dans des tickets JIRA.</p>
-          <JiraExport story={story} />
+          <JiraExport />
         </div>
         <div className={styles.json}>
           <h2>Export JSON</h2>
