@@ -1,4 +1,5 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react'
+import React, { createContext, useRef, useCallback, useEffect, useState } from 'react'
+import { throttle } from 'lodash'
 
 import AssetPhase from './components/AssetPhase'
 import Breadcrumb from './components/Breadcrumb'
@@ -25,13 +26,46 @@ export const GlobalUserStoryContext = createContext<UserStoryContext>({
   setStory: () => {}
 })
 
+const loadStoryState = () => {
+  try {
+    if (typeof(window) === 'undefined') {
+      return defaultUserStoryData
+    }
+    const storyState = window.localStorage.getItem('story')
+    if (storyState === null) {
+      return defaultUserStoryData
+    }
+    return JSON.parse(storyState)
+  } catch (error) {
+    console.warn('Unable to load story state from local storage')
+    return defaultUserStoryData
+  }
+}
+
+const saveStoryState = (story: UserStory) => {
+  try {
+    if (typeof(window) !== 'undefined') {
+      const storyState = JSON.stringify(story)
+      window.localStorage.setItem('story', storyState)
+      console.info('Story state saved to local storage')
+    }
+  } catch {
+    console.warn('Unable to save story state to local storage')
+  }
+}
+
 const MainView = () => {
   const [currentPhase, setCurrentPhase] = useState<string>('')
-  const [story, setStory] = useState<UserStory>(defaultUserStoryData)
+  const [story, setStory] = useState<UserStory>(loadStoryState())
+  const saveStoryStateRef = useRef(throttle((story: UserStory) => saveStoryState(story), 5000))
 
   useEffect(() => {
     document.title = 'GroomingApp'
   }, [])
+
+  useEffect(() => {
+    saveStoryStateRef.current(story)
+  }, [story])
 
   return (
     <>
