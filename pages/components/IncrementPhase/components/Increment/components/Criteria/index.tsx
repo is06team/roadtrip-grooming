@@ -35,6 +35,7 @@ const CriteriaView = ({ id, title, gherkin, onChange, onDelete }: Props) => {
     gherkin: gherkin,
   })
   const [suggestion, setSuggestion] = useState<string>('')
+  const [criteriaLineCount, setCriteriaLineCount] = useState(1)
 
   const handleKeyPressed = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.which !== 13) {
@@ -46,6 +47,7 @@ const CriteriaView = ({ id, title, gherkin, onChange, onDelete }: Props) => {
 
   const updateGherkin = (selectionStart: number, text: string) => {
     const lines = text.split('\n')
+    setCriteriaLineCount(lines.length)
     const currentLine = getCurrentLine(lines, selectionStart)
     const sugg = getSuggestion(lines[currentLine])
     setSuggestion(
@@ -75,7 +77,7 @@ const CriteriaView = ({ id, title, gherkin, onChange, onDelete }: Props) => {
           <button className="criteriaTitle" onClick={() => onDelete(criteriaData.id) }>Supprimer</button>
         </div>
         <div className={styles.content}>
-          <div className={styles.contentField}>
+          <div className={styles.contentField} style={{height: (criteriaLineCount + 2) * 1.25 + 'em' }}>
             <div className={styles.contentSuggestion}>{suggestion}</div>
             <textarea
               className="user_story_increment_criteria_text"
