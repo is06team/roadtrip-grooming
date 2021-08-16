@@ -1,0 +1,15 @@
+@import '../../styles/variables';
+
+.incrementButton {
+  background-color: $button-increment-background-color;
+  color: $button-increment-text-color;
+  border-color: $button-increment-border-color;
+
+  &:active {
+    background-color: $button-increment-active-background-color;
+  }
+}
+
+.list {
+  margin-bottom: 2em;
+}

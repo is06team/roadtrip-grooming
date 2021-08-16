@@ -6,6 +6,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <Component {...pageProps} />
       <Head>
+        <title>Roadtrip App</title>
         <script type="text/javascript" src="https://kit.fontawesome.com/c8a09f3a5c.js"></script>
       </Head>
     </>
