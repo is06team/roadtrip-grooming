@@ -1,0 +1,31 @@
+@import '../../styles/variables';
+
+.Timer {
+  width: 20%;
+  margin-right: 2em;
+  display: flex;
+
+  .buttons {
+    margin-right: 0.5em;
+    display: flex;
+
+    button {
+      font-size: 0.75em;
+      padding: 0;
+    }
+  }
+
+  .counter {
+    flex-grow: 1;
+  }
+
+  .progressContainer {
+    height: 6px;
+    background-color: $timer-progress-background;
+
+    .progressBar {
+      height: 6px;
+      background-color: $timer-progress-color;
+    }
+  }
+}
