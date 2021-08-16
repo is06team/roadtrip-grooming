@@ -1,15 +1,8 @@
-import Link from 'next/link'
+import GroomingView from "./grooming"
 
 const IndexView = () => {
   return (
-    <>
-      <div>Index</div>
-      <ul>
-        <li>
-          <Link href="/grooming">Grooming</Link>
-        </li>
-      </ul>
-    </>
+    <GroomingView />
   )
 }
 
