@@ -74,6 +74,14 @@ const getIncrementLine = (story: UserStory, increment: Increment) => [
   increment.checklist.t ? 'T' : '',
 ]
 
+const getEnablers: (enablers: string) => string[] = (enablers) => {
+  const items = enablers.split('\n')
+  if (items.length === 1 && items[0] === '') {
+    return []
+  }
+  return items
+}
+
 const getEnablerLine = (enabler: string) => [
   projectKey,
   projectName,
@@ -94,7 +102,7 @@ const getCsvExport: (story: UserStory) => string = (story) => {
     'Project Key,Project Name,Type,Summary,Description,Business Value,Estimation,ROI,DIET,DIET,DIET,DIET'
   const storyLine = getStoryLine(story)
   const incrementLines = story.increments.map((increment) => getIncrementLine(story, increment))
-  const enablerLines = story.enablers.split('\n').map((enabler) => getEnablerLine(enabler))
+  const enablerLines = getEnablers(story.enablers).map((enabler) => getEnablerLine(enabler))
 
   return (
     headerLine +
@@ -114,7 +122,7 @@ const getUserStoryCsv: (story: UserStory) => string = (story) => {
   const headerLine =
     'Project Key,Project Name,Type,Summary,Description,Business Value,Estimation,ROI,DIET,DIET,DIET,DIET'
   const storyLine = getStoryLine(story)
-  const enablerLines = story.enablers.split('\n').map((enabler) => getEnablerLine(enabler))
+  const enablerLines = getEnablers(story.enablers).map((enabler) => getEnablerLine(enabler))
 
   return (
     headerLine +
