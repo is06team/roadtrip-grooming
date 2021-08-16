@@ -1,3 +1,5 @@
+import { faSlack } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
 
@@ -57,7 +59,7 @@ const Estimation = ({ estimation, incrementTypeName, onChange }: Props) => {
         <option>21</option>
       </select>
       <button className={'slackPoll' + (slackCopied ? ' copied' : '')} onClick={handleSlackCopy}>
-        <i className="fab fa-slack"></i>
+        <FontAwesomeIcon icon={faSlack} />
         <span className="label">{slackCopied ? 'Copié !' : 'Copier poll Slack'}</span>
       </button>
     </div>
