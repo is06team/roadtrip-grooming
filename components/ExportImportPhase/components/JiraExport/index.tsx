@@ -59,6 +59,9 @@ const getIncrementDescription = (story: UserStory, increment: Increment) =>
   (increment.notes.trim().length > 0 ? 'h2. Notes\n\n' + increment.notes.trim() : '') +
   '"'
 
+const getROI = (businessValue: number, estimation: number) =>
+  estimation === 0 ? "0" : Math.round(businessValue / estimation).toString()
+
 const getIncrementLine = (story: UserStory, increment: Increment) => [
   projectKey,
   projectName,
@@ -67,7 +70,7 @@ const getIncrementLine = (story: UserStory, increment: Increment) => [
   getIncrementDescription(story, increment),
   story.value.toString(),
   increment.estimation,
-  Math.round(story.value / increment.estimation).toString(),
+  getROI(story.value, increment.estimation),
   increment.checklist.d ? 'D' : '',
   increment.checklist.i ? 'I' : '',
   increment.checklist.e ? 'E' : '',
