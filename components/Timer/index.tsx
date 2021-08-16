@@ -1,3 +1,6 @@
+import { faPause, faPlay, faUndoAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { platform } from 'os'
 import React, { useState, useEffect } from 'react'
 import styles from './styles.module.scss'
 
@@ -44,10 +47,10 @@ const TimerView = () => {
     <div className={styles.Timer}>
       <div className={styles.buttons}>
         <button className="timer" onClick={startPause}>
-          <i className={'fas ' + (active ? 'fa-pause' : 'fa-play')}></i>
+          <FontAwesomeIcon icon={active ? faPause : faPlay} />
         </button>
         <button className="timer" onClick={reset}>
-          <i className="fas fa-undo-alt"></i>
+          <FontAwesomeIcon icon={faUndoAlt} />
         </button>
       </div>
       <div className={styles.counter}>

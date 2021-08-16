@@ -40,7 +40,7 @@ const GroomingView = () => {
             placeholder="Titre de la US"
             onChange={(e) => setStory({ ...story, title: e.target.value })}
           />
-          <Timer></Timer>
+          <Timer />
           <button onClick={() => setStory(defaultUserStoryData)}>Effacer tout</button>
         </div>
         <div className={styles.Main}>
