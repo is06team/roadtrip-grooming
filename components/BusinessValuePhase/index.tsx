@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { GlobalUserStoryContext } from '../../model/context'
 
 const getValueItems: () => JSX.Element[] = () => {
-  let items = [<option key={'value_item_none'}>- Choisissez</option>]
+  let items = [<option key={'value_item_none'} value="0">- Choisissez</option>]
   for (let i = 5; i <= 100; i += 5) {
     items.push(
       <option key={'value_item_' + i} value={i}>

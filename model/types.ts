@@ -2,6 +2,7 @@ export interface UserStory {
   title: string
   need: Need
   solution: string
+  solutions: Solution[]
   value: number
   kpis: string
   enablers: string
@@ -13,6 +14,12 @@ export interface Need {
   as: string
   want: string
   to: string
+}
+
+export interface Solution {
+  text: string,
+  estimation: number,
+  selected: boolean,
 }
 
 export interface Increment {

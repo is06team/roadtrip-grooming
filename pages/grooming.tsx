@@ -10,6 +10,7 @@ import IncrementPhase from '../components/IncrementPhase'
 import KpiPhase from '../components/KpiPhase'
 import NeedPhase from '../components/NeedPhase'
 import SolutionPhase from '../components/SolutionPhase'
+import OldSolutionPhase from '../components/OldSolutionPhase'
 import styles from './styles.module.scss'
 import Timer from '../components/Timer'
 
@@ -47,8 +48,9 @@ const GroomingView = () => {
           <Breadcrumb currentPhase={currentPhase} onChangePhase={useCallback((phase) => setCurrentPhase(phase), [])} />
           <div className="phases" id="phase-items">
             {currentPhase === 'need' && <NeedPhase />}
-            {currentPhase === 'solution' && <SolutionPhase />}
             {currentPhase === 'value' && <BusinessValuePhase />}
+            {(currentPhase === 'solutions' && story.solution !== "") && <OldSolutionPhase />}
+            {(currentPhase === 'solutions' && story.solution === '') && <SolutionPhase />}
             {currentPhase === 'kpis' && <KpiPhase />}
             {currentPhase === 'enablers' && <EnablerPhase />}
             {currentPhase === 'assets' && <AssetPhase />}

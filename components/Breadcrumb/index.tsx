@@ -1,5 +1,5 @@
 import styles from './styles.module.scss'
-import { Need } from '../../model/types'
+import { Need, Solution } from '../../model/types'
 import { useContext } from 'react'
 import { GlobalUserStoryContext } from '../../model/context'
 
@@ -10,9 +10,9 @@ type Props = {
 
 const preGroomingItems = [
   { name: 'need', title: 'Besoin', hasRecap: true },
-  { name: 'solution', title: 'Solution fonctionnelle', hasRecap: true },
-  { name: 'value', title: 'Valeur métier', hasRecap: true },
   { name: 'kpis', title: 'KPIs de succès', hasRecap: true },
+  { name: 'value', title: 'Valeur métier', hasRecap: true },
+  { name: 'solutions', title: 'Solution fonctionnelle', hasRecap: true },
   { name: 'enablers', title: 'Enablers', hasRecap: true },
 ]
 
@@ -21,23 +21,37 @@ const groomingItems = [
   { name: 'increments', title: 'Incréments', hasRecap: false },
 ]
 
-const getNeedRecapText = (need: Need) => {
-  let text = ''
-  text += need.as ? '<strong>ETQ</strong> ' + need.as + '<br />' : ''
-  text += need.want ? '<strong>JS</strong> ' + need.want + '<br />' : ''
-  text += need.to ? '<strong>AD</strong> ' + need.to : ''
-  return text
+const getNeedRecapText = (need: Need) =>
+  need.as
+    ? '<strong>ETQ</strong> ' + need.as + '<br />'
+    : '' + need.want
+    ? '<strong>JS</strong> ' + need.want + '<br />'
+    : '' + need.to
+    ? '<strong>AD</strong> ' + need.to
+    : ''
+
+const getValueRecapText = (value: number) => (value === 0 ? '' : value.toString())
+
+const getSolutionRecapText = (solutions: Solution[] = []) => {
+  const selectedSolutions = solutions.filter((solution) => solution.selected)
+  return selectedSolutions.length > 0 ? selectedSolutions[0].text : ''
 }
 
-const getRecap = (itemName: string, itemData: Need | string) => {
-  return (
-    <div
-      className="recap"
-      dangerouslySetInnerHTML={{
-        __html: itemName === 'need' ? getNeedRecapText(itemData as Need) : (itemData as string) || '',
-      }}
-    ></div>
-  )
+const getRecap = (itemName: string, itemData: any) => {
+  const recapText = (() => {
+    switch (itemName) {
+      case 'need':
+        return getNeedRecapText(itemData as Need)
+      case 'value':
+        return getValueRecapText(itemData as number)
+      case 'solutions':
+        return getSolutionRecapText(itemData as Solution[])
+      default:
+        return itemData as string
+    }
+  })()
+
+  return <div className="recap" dangerouslySetInnerHTML={{ __html: recapText }}></div>
 }
 
 const BreadcrumbView = ({ currentPhase, onChangePhase }: Props) => {

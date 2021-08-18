@@ -8,6 +8,13 @@ export const defaultUserStoryData: UserStory = {
     to: '',
   },
   solution: '',
+  solutions: [
+    {
+      text: '',
+      estimation: 0,
+      selected: false,
+    }
+  ],
   value: 0,
   kpis: '',
   enablers: '',
