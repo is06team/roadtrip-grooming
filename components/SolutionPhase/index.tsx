@@ -1,8 +1,63 @@
 import { useContext } from 'react'
 import { GlobalUserStoryContext } from '../../model/context'
+import { Solution } from '../../model/types'
+import styles from './styles.module.scss'
+
+const getEstimationSelector = (estimation: number, onChange: (value: number) => void) => {
+  return (
+    <select value={estimation} onChange={(e) => onChange(parseInt(e.target.value))}>
+      <option value="0">- Complexité</option>
+      <option value="1">Faible</option>
+      <option value="2">Moyenne</option>
+      <option value="3">Forte</option>
+    </select>
+  )
+}
+
+const incrementSolutions = (solutions: Solution[], currentlyUpdatedIndex: number) =>
+  typeof solutions[currentlyUpdatedIndex + 1] === 'undefined'
+    ? [...solutions, { text: '', estimation: 0, selected: false }]
+    : solutions
 
 const SolutionPhase = () => {
   const { story, setStory } = useContext(GlobalUserStoryContext)
+
+  const handleChangeSolutionText = (index: number, text: string) => {
+    // Update solution list
+    const updatedSolutions = story.solutions.map((solution, i) => {
+      if (i === index) {
+        return { ...solution, text: text }
+      }
+      return solution
+    })
+
+    const incrementedSolutions = incrementSolutions(updatedSolutions, index)
+
+    setStory({ ...story, solutions: incrementedSolutions })
+  }
+
+  const handleChangeSolutionEstimation = (index: number, estimation: number) => {
+    const updatedSolutions = story.solutions.map((solution, i) => {
+      if (i === index) {
+        return { ...solution, estimation: estimation }
+      }
+      return solution
+    })
+    setStory({ ...story, solutions: updatedSolutions })
+  }
+
+  const handleChangeSelectedSolution = (index: number) => {
+    const resetSolutions = story.solutions.map((solution) => {
+      return { ...solution, selected: false }
+    })
+    const updatedSolutions = resetSolutions.map((solution, i) => {
+      if (i === index) {
+        return { ...solution, selected: true }
+      }
+      return solution
+    })
+    setStory({ ...story, solutions: updatedSolutions })
+  }
 
   return (
     <div className="phase-container">
@@ -13,18 +68,44 @@ const SolutionPhase = () => {
           <small>Comment répond t-on au besoin ?</small>
         </h1>
 
+        <p>
+          Listez ici des solutions potentielles pour répondre au besoin.
+          <br />
+          Eventuellement, pour vous aider à choisir la bonne solution, estimez à la (grosse) louche leur complexité.
+        </p>
+
+        <fieldset className={styles.solutionList}>
+          {story.solutions.map((solution, index) => (
+            <div className="field" key={'solution_' + index}>
+              <span>{index + 1}.</span>
+              <input
+                type="text"
+                value={solution.text}
+                onChange={(e) => handleChangeSolutionText(index, e.target.value)}
+              />
+              {getEstimationSelector(solution.estimation, (value) => handleChangeSolutionEstimation(index, value))}
+            </div>
+          ))}
+        </fieldset>
+
+        <p>Puis choisissez laquelle sera réalisée.</p>
+
         <fieldset>
-          <textarea
-            name="solution"
-            value={story.solution}
-            id="user_story_solution"
-            onChange={(e) => setStory({ ...story, solution: e.target.value })}
-          ></textarea>
+          <select onChange={(e) => handleChangeSelectedSolution(parseInt(e.target.value))}>
+            <option value="">- Choisissez</option>
+            {story.solutions
+              .filter((solution) => solution.text !== '')
+              .map((solution, index) => (
+                <option value={index}>
+                  {index + 1}. {solution.text}
+                </option>
+              ))}
+          </select>
         </fieldset>
       </div>
       <div className="phase-guides">
         <h3>Objectif</h3>
-        <p>Se mettre d'accord sur la solution et la challenger</p>
+        <p>Se mettre d'accord sur la solution</p>
 
         <h3>Exemple</h3>
         <p>"Formulaire de contact qui envoie un mail"</p>
