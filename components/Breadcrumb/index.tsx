@@ -34,7 +34,14 @@ const getSolutionRecapText = (solutions: Solution[] = []) => {
 }
 
 const getIncrementRecapText = (increments: Increment[]) => {
-  return increments.length
+  return increments.reduce((text, increment) => {
+    const checklistText =
+      (increment.checklist.d ? 'D' : '-') +
+      (increment.checklist.i ? 'I' : '-') +
+      (increment.checklist.e ? 'E' : '-') +
+      (increment.checklist.t ? 'T' : '-')
+    return text + increment.type + ' : ' + checklistText + ', CP: ' + increment.estimation + '<br />'
+  }, '')
 }
 
 const getRecap = (itemName: string, itemData: any) => {
@@ -46,7 +53,7 @@ const getRecap = (itemName: string, itemData: any) => {
         return getValueRecapText(itemData as number)
       case 'solutions':
         return getSolutionRecapText(itemData as Solution[])
-      case 'increment':
+      case 'increments':
         return getIncrementRecapText(itemData as Increment[])
       default:
         return itemData as string

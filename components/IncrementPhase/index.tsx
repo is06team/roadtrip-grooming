@@ -75,26 +75,7 @@ const IncrementPhase = () => {
           </button>
         </div>
         <div className="phase-guides">
-          <h3>Les incréments</h3>
-          <p>
-            Les incréments sont des <strong>"sous-US"</strong> qui nous permettent de découper fonctionnellement et
-            d'améliorer notre fiabilité de delivery au cours du sprint.
-          </p>
-
-          <h3>Comment découper ?</h3>
-          <p>
-            On peut tout à fait intégrer l'intégration de maquettes, le tracking et la gestion GDPR dans le même
-            incrément. Tout comme il est possible de créer autant d'incréments que nécessaire.
-          </p>
-
-          <h3>Les critères</h3>
-          <p>
-            Les critères d'acceptation permettent de vérifier que la fonctionnalité correspond à la{' '}
-            <strong>solution fonctionnelle</strong> choisie.
-          </p>
-
           <h3>Points de vigilance</h3>
-          <p>Penser à...</p>
           <ul>
             <li>
               <strong>Plusieurs clics</strong> sur les <strong>boutons</strong> de soumission de formulaire
@@ -105,7 +86,6 @@ const IncrementPhase = () => {
           </ul>
 
           <h3>DIET</h3>
-          <p>Pour chaque incrément (lorsqu'il est éligible), on peut définir si il est :</p>
           <ul>
             <li>
               <strong>D</strong>écoupé au maximum : est-ce que l'incrément n'est plus découpable davantage ?
