@@ -19,6 +19,15 @@ const incrementSolutions = (solutions: Solution[], currentlyUpdatedIndex: number
     ? [...solutions, { text: '', estimation: 0, selected: false }]
     : solutions
 
+const getSelectedSolutionIndex: (solutions: Solution[]) => string = (solutions) => {
+  const selected = solutions
+    .map((solution, index) => {
+      return { index, solution }
+    })
+    .filter((item) => item.solution.selected)
+  return selected.length > 0 ? selected[0].index.toString() : ''
+}
+
 const SolutionPhase = () => {
   const { story, setStory } = useContext(GlobalUserStoryContext)
 
@@ -91,7 +100,10 @@ const SolutionPhase = () => {
         <p>Puis choisissez laquelle sera réalisée.</p>
 
         <fieldset>
-          <select onChange={(e) => handleChangeSelectedSolution(parseInt(e.target.value))}>
+          <select
+            value={getSelectedSolutionIndex(story.solutions)}
+            onChange={(e) => handleChangeSelectedSolution(parseInt(e.target.value))}
+          >
             <option value="">- Choisissez</option>
             {story.solutions
               .filter((solution) => solution.text !== '')
