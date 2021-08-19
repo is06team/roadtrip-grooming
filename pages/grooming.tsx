@@ -18,6 +18,8 @@ import { defaultUserStoryData } from '../model/defaultUserStoryData'
 import { UserStory } from '../model/types'
 import { GlobalUserStoryContext } from '../model/context'
 import { loadStoryState, saveStoryState } from '../model/storage'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBomb } from '@fortawesome/free-solid-svg-icons'
 
 const GroomingView = () => {
   const [currentPhase, setCurrentPhase] = useState<string>('')
@@ -32,7 +34,6 @@ const GroomingView = () => {
     <>
       <GlobalUserStoryContext.Provider value={{ story, setStory }}>
         <div className={styles.UsTitle}>
-          <h1>User story :</h1>
           <input
             type="text"
             value={story.title}
@@ -42,15 +43,18 @@ const GroomingView = () => {
             onChange={(e) => setStory({ ...story, title: e.target.value })}
           />
           <Timer />
-          <button onClick={() => setStory(defaultUserStoryData)}>Effacer tout</button>
+          <button className={styles.DeleteAllButton} onClick={() => setStory(defaultUserStoryData)}>
+            <FontAwesomeIcon icon={faBomb} />
+            &nbsp; Effacer tout
+          </button>
         </div>
         <div className={styles.Main}>
           <Breadcrumb currentPhase={currentPhase} onChangePhase={useCallback((phase) => setCurrentPhase(phase), [])} />
           <div className="phases" id="phase-items">
             {currentPhase === 'need' && <NeedPhase />}
             {currentPhase === 'value' && <BusinessValuePhase />}
-            {(currentPhase === 'solutions' && story.solution !== "") && <OldSolutionPhase />}
-            {(currentPhase === 'solutions' && story.solution === '') && <SolutionPhase />}
+            {currentPhase === 'solutions' && story.solution !== '' && <OldSolutionPhase />}
+            {currentPhase === 'solutions' && story.solution === '' && <SolutionPhase />}
             {currentPhase === 'kpis' && <KpiPhase />}
             {currentPhase === 'enablers' && <EnablerPhase />}
             {currentPhase === 'assets' && <AssetPhase />}

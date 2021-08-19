@@ -7,6 +7,8 @@ import styles from './styles.module.scss'
 import { v4 as uuidv4 } from 'uuid'
 import { Checklist, Criteria, Increment, IncrementType } from '../../../../model/types'
 import { incrementTypes } from '../../../../config/increments'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   id: string
@@ -206,7 +208,7 @@ const IncrementView = ({
             {getTypeSelector(increment.type)}
           </h2>
           <button className="title" onClick={() => onDelete(increment.id)}>
-            Supprimer
+            <FontAwesomeIcon icon={faTrash} />
           </button>
         </div>
         <div className={styles.content}>

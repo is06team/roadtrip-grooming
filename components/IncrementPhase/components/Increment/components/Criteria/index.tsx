@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useEffect, useState } from 'react'
 import { criteriaDictionary as Suggestions } from '../../../../../../config/criterias'
 import { Criteria } from '../../../../../../model/types'
 import styles from './styles.module.scss'
@@ -36,6 +38,8 @@ const CriteriaView = ({ id, title, gherkin, onChange, onDelete }: Props) => {
   })
   const [suggestion, setSuggestion] = useState<string>('')
   const [criteriaLineCount, setCriteriaLineCount] = useState(1)
+
+  useEffect(() => setCriteriaLineCount(criteriaData.gherkin.split('\n').length), [])
 
   const handleKeyPressed = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.which !== 13) {
@@ -78,7 +82,7 @@ const CriteriaView = ({ id, title, gherkin, onChange, onDelete }: Props) => {
             onChange={(event) => updateTitle(event)}
           />
           <button className="criteriaTitle" onClick={() => onDelete(criteriaData.id)}>
-            Supprimer
+            <FontAwesomeIcon icon={faTrash} />
           </button>
         </div>
         <div className={styles.content}>

@@ -22,13 +22,9 @@ const groomingItems = [
 ]
 
 const getNeedRecapText = (need: Need) =>
-  need.as
-    ? '<strong>ETQ</strong> ' + need.as + '<br />'
-    : '' + need.want
-    ? '<strong>JS</strong> ' + need.want + '<br />'
-    : '' + need.to
-    ? '<strong>AD</strong> ' + need.to
-    : ''
+  (need.as ? '<strong>ETQ</strong> ' + need.as + '<br />' : '') +
+  (need.want ? '<strong>JS</strong> ' + need.want + '<br />' : '') +
+  (need.to ? '<strong>AD</strong> ' + need.to : '')
 
 const getValueRecapText = (value: number) => (value === 0 ? '' : value.toString())
 
@@ -51,7 +47,7 @@ const getRecap = (itemName: string, itemData: any) => {
     }
   })()
 
-  return <div className="recap" dangerouslySetInnerHTML={{ __html: recapText }}></div>
+  return <div className={styles.BreadcrumbItemRecap} dangerouslySetInnerHTML={{ __html: recapText }}></div>
 }
 
 const BreadcrumbView = ({ currentPhase, onChangePhase }: Props) => {
@@ -64,7 +60,7 @@ const BreadcrumbView = ({ currentPhase, onChangePhase }: Props) => {
         {preGroomingItems.map((item) => (
           <li
             key={'item_' + item.name}
-            className={styles.BreadcrumbItem + (currentPhase === item.name ? ' ' + styles.current : '')}
+            className={styles.BreadcrumbItem + (currentPhase === item.name ? ' ' + styles.BreadcrumbItemCurrent : '')}
             onClick={() => onChangePhase(item.name)}
           >
             <h3>{item.title}</h3>
@@ -77,7 +73,7 @@ const BreadcrumbView = ({ currentPhase, onChangePhase }: Props) => {
         {groomingItems.map((item) => (
           <li
             key={'item_' + item.name}
-            className={styles.BreadcrumbItem + (currentPhase === item.name ? ' ' + styles.current : '')}
+            className={styles.BreadcrumbItem + (currentPhase === item.name ? ' ' + styles.BreadcrumbItemCurrent : '')}
             onClick={() => onChangePhase(item.name)}
           >
             <h3>{item.title}</h3>

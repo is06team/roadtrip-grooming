@@ -17,7 +17,6 @@ const EnablerPhase = () => {
             name="enablers"
             value={story.enablers}
             id="user_story_enablers"
-            rows={10}
             onChange={(e) => setStory({ ...story, enablers: e.target.value })}
           ></textarea>
         </fieldset>

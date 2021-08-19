@@ -17,7 +17,7 @@ export const incrementTypes: IncrementTypeConfig[] = [
     hasDiet: true,
     hasEstimation: true,
     hasNotes: false,
-    hasDependencies: true,
+    hasDependencies: false,
   },
   {
     id: 'tracking',
@@ -26,7 +26,7 @@ export const incrementTypes: IncrementTypeConfig[] = [
     hasDiet: true,
     hasEstimation: true,
     hasNotes: false,
-    hasDependencies: true,
+    hasDependencies: false,
   },
   {
     id: 'gdpr',
@@ -35,7 +35,7 @@ export const incrementTypes: IncrementTypeConfig[] = [
     hasDiet: true,
     hasEstimation: true,
     hasNotes: false,
-    hasDependencies: true,
+    hasDependencies: false,
   },
   {
     id: 'ui',
@@ -44,7 +44,7 @@ export const incrementTypes: IncrementTypeConfig[] = [
     hasDiet: true,
     hasEstimation: true,
     hasNotes: true,
-    hasDependencies: true,
+    hasDependencies: false,
   },
   {
     id: 'release',
@@ -53,7 +53,7 @@ export const incrementTypes: IncrementTypeConfig[] = [
     hasDiet: false,
     hasEstimation: true,
     hasNotes: true,
-    hasDependencies: true,
+    hasDependencies: false,
   },
 ]
 

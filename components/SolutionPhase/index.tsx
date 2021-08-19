@@ -85,14 +85,16 @@ const SolutionPhase = () => {
 
         <fieldset className={styles.solutionList}>
           {story.solutions.map((solution, index) => (
-            <div className="field" key={'solution_' + index}>
-              <span>{index + 1}.</span>
-              <input
-                type="text"
-                value={solution.text}
-                onChange={(e) => handleChangeSolutionText(index, e.target.value)}
-              />
-              {getEstimationSelector(solution.estimation, (value) => handleChangeSolutionEstimation(index, value))}
+            <div className="field">
+              <div className={styles.solution} key={'solution_' + index}>
+                <span>{index + 1}.</span>
+                <input
+                  type="text"
+                  value={solution.text}
+                  onChange={(e) => handleChangeSolutionText(index, e.target.value)}
+                />
+                {getEstimationSelector(solution.estimation, (value) => handleChangeSolutionEstimation(index, value))}
+              </div>
             </div>
           ))}
         </fieldset>
@@ -101,6 +103,7 @@ const SolutionPhase = () => {
 
         <fieldset>
           <select
+            className={styles.selectedSolution}
             value={getSelectedSolutionIndex(story.solutions)}
             onChange={(e) => handleChangeSelectedSolution(parseInt(e.target.value))}
           >
