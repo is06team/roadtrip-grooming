@@ -60,7 +60,7 @@ const getIncrementDescription = (story: UserStory, increment: Increment) =>
   '"'
 
 const getROI = (businessValue: number, estimation: number) =>
-  estimation === 0 ? "0" : Math.round(businessValue / estimation).toString()
+  estimation === 0 ? '0' : Math.round(businessValue / estimation).toString()
 
 const getIncrementLine = (story: UserStory, increment: Increment) => [
   projectKey,
@@ -167,7 +167,7 @@ const JiraExport = () => {
 
   return (
     <>
-      <h2>Export JIRA CSV</h2>
+      <h2>Export CSV pour JIRA</h2>
       <p>Vous pouvez importer les tickets JIRA avec le fichier CSV suivant :</p>
       <pre className="code">{getCsvExport(story)}</pre>
       <div className={styles.actions}>

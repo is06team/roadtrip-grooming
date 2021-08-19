@@ -1,5 +1,5 @@
 import styles from './styles.module.scss'
-import { Need, Solution } from '../../model/types'
+import { Increment, Need, Solution } from '../../model/types'
 import { useContext } from 'react'
 import { GlobalUserStoryContext } from '../../model/context'
 
@@ -18,7 +18,7 @@ const preGroomingItems = [
 
 const groomingItems = [
   { name: 'assets', title: 'Assets', hasRecap: true },
-  { name: 'increments', title: 'Incréments', hasRecap: false },
+  { name: 'increments', title: 'Incréments', hasRecap: true },
 ]
 
 const getNeedRecapText = (need: Need) =>
@@ -33,6 +33,10 @@ const getSolutionRecapText = (solutions: Solution[] = []) => {
   return selectedSolutions.length > 0 ? selectedSolutions[0].text : ''
 }
 
+const getIncrementRecapText = (increments: Increment[]) => {
+  return increments.length
+}
+
 const getRecap = (itemName: string, itemData: any) => {
   const recapText = (() => {
     switch (itemName) {
@@ -42,6 +46,8 @@ const getRecap = (itemName: string, itemData: any) => {
         return getValueRecapText(itemData as number)
       case 'solutions':
         return getSolutionRecapText(itemData as Solution[])
+      case 'increment':
+        return getIncrementRecapText(itemData as Increment[])
       default:
         return itemData as string
     }
@@ -55,7 +61,7 @@ const BreadcrumbView = ({ currentPhase, onChangePhase }: Props) => {
 
   return (
     <div className={styles.Breadcrumb}>
-      <h2>Pré-grooming :</h2>
+      <h2>Pré-grooming</h2>
       <ul>
         {preGroomingItems.map((item) => (
           <li
@@ -68,7 +74,7 @@ const BreadcrumbView = ({ currentPhase, onChangePhase }: Props) => {
           </li>
         ))}
       </ul>
-      <h2>Grooming :</h2>
+      <h2>Grooming</h2>
       <ul>
         {groomingItems.map((item) => (
           <li
