@@ -60,7 +60,7 @@ const Estimation = ({ estimation, incrementTypeName, onChange }: Props) => {
       </select>
       <button className={'slackPoll' + (slackCopied ? ' copied' : '')} onClick={handleSlackCopy}>
         <FontAwesomeIcon icon={faSlack} />
-        <span className="label">{slackCopied ? 'Copié !' : 'Copier poll Slack'}</span>
+        <span className="label">{slackCopied ? 'Copié !' : 'Poll Slack'}</span>
       </button>
     </div>
   )

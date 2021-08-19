@@ -61,6 +61,8 @@ fieldset {
 }
 
 .field input {
+  border: 2px solid $button-border-color;
+  font-size: 1em;
   width: 65%;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em;
@@ -79,6 +81,7 @@ label {
 textarea {
   width: 100%;
   height: 6em;
+  border: 2px solid $button-border-color;
   font-family: Arial, Helvetica, sans-serif;
   padding: 0.5em;
 }
@@ -165,6 +168,8 @@ button,
 select {
   border: 2px solid $button-border-color;
   font-size: 1em;
+  padding: 0px 2px 1px 2px;
+  line-height: 0.7em;
 
   &.title {
     border: 0;
