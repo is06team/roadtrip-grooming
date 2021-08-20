@@ -33,6 +33,12 @@ const getSolutionRecapText = (solutions: Solution[] = []) => {
   return selectedSolutions.length > 0 ? selectedSolutions[0].text : ''
 }
 
+const getEnablerRecapText = (enablers: string) =>
+  enablers
+    .split('\n')
+    .map((item) => item)
+    .join('<br />')
+
 const getIncrementRecapText = (increments: Increment[]) => {
   return increments.reduce((text, increment) => {
     const checklistText =
@@ -53,6 +59,8 @@ const getRecap = (itemName: string, itemData: any) => {
         return getValueRecapText(itemData as number)
       case 'solutions':
         return getSolutionRecapText(itemData as Solution[])
+      case 'enablers':
+        return getEnablerRecapText(itemData as string)
       case 'increments':
         return getIncrementRecapText(itemData as Increment[])
       default:
