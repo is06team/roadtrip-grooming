@@ -2,6 +2,7 @@ import { UserStory } from './types'
 
 export const defaultUserStoryData: UserStory = {
   title: '',
+  jiraTicket: '',
   need: {
     as: '',
     want: '',
@@ -13,7 +14,7 @@ export const defaultUserStoryData: UserStory = {
       text: '',
       estimation: 0,
       selected: false,
-    }
+    },
   ],
   value: 0,
   kpis: '',

@@ -75,6 +75,7 @@ const getIncrementLine = (story: UserStory, increment: Increment) => [
   increment.checklist.i ? 'I' : '',
   increment.checklist.e ? 'E' : '',
   increment.checklist.t ? 'T' : '',
+  story.jiraTicket ? story.jiraTicket : '',
 ]
 
 const getEnablers: (enablers: string) => string[] = (enablers) => {
@@ -140,7 +141,7 @@ const getUserStoryCsv: (story: UserStory) => string = (story) => {
 
 const getIncrementCsv: (story: UserStory) => string = (story) => {
   const headerLine =
-    'Project Key,Project Name,Type,Summary,Description,Business Value,Estimation,ROI,DIET,DIET,DIET,DIET'
+    'Project Key,Project Name,Type,Summary,Description,Business Value,Estimation,ROI,DIET,DIET,DIET,DIET,UserStoryLink'
   const incrementLines = story.increments.map((increment) => getIncrementLine(story, increment))
 
   return (

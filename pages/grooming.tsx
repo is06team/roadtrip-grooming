@@ -12,14 +12,11 @@ import NeedPhase from '../components/NeedPhase'
 import SolutionPhase from '../components/SolutionPhase'
 import OldSolutionPhase from '../components/OldSolutionPhase'
 import styles from './styles.module.scss'
-import Timer from '../components/Timer'
 
-import { defaultUserStoryData } from '../model/defaultUserStoryData'
 import { UserStory } from '../model/types'
 import { GlobalUserStoryContext } from '../model/context'
 import { loadStoryState, saveStoryState } from '../model/storage'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBomb } from '@fortawesome/free-solid-svg-icons'
+import TitleBar from '../components/TitleBar'
 
 const GroomingView = () => {
   const [currentPhase, setCurrentPhase] = useState<string>('')
@@ -33,21 +30,7 @@ const GroomingView = () => {
   return (
     <>
       <GlobalUserStoryContext.Provider value={{ story, setStory }}>
-        <div className={styles.UsTitle}>
-          <input
-            type="text"
-            value={story.title}
-            id="user_story_title"
-            name="user_story[title]"
-            placeholder="Titre de la US"
-            onChange={(e) => setStory({ ...story, title: e.target.value })}
-          />
-          <Timer />
-          <button className={styles.DeleteAllButton} onClick={() => setStory(defaultUserStoryData)}>
-            <FontAwesomeIcon icon={faBomb} />
-            &nbsp; Effacer tout
-          </button>
-        </div>
+        <TitleBar />
         <div className={styles.Main}>
           <Breadcrumb currentPhase={currentPhase} onChangePhase={useCallback((phase) => setCurrentPhase(phase), [])} />
           <div className="phases" id="phase-items">

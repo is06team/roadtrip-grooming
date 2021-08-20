@@ -1,5 +1,6 @@
 export interface UserStory {
   title: string
+  jiraTicket?: string
   need: Need
   solution: string
   solutions: Solution[]
@@ -17,9 +18,9 @@ export interface Need {
 }
 
 export interface Solution {
-  text: string,
-  estimation: number,
-  selected: boolean,
+  text: string
+  estimation: number
+  selected: boolean
 }
 
 export interface Increment {
