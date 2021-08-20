@@ -71,7 +71,7 @@ const getRecap = (itemName: string, itemData: any) => {
   return <div className={styles.BreadcrumbItemRecap} dangerouslySetInnerHTML={{ __html: recapText }}></div>
 }
 
-const BreadcrumbView = ({ currentPhase, onChangePhase }: Props) => {
+const Menu = ({ currentPhase, onChangePhase }: Props) => {
   const { story } = useContext(GlobalUserStoryContext)
 
   return (
@@ -115,4 +115,4 @@ const BreadcrumbView = ({ currentPhase, onChangePhase }: Props) => {
   )
 }
 
-export default BreadcrumbView
+export default Menu
