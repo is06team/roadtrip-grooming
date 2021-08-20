@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { defaultUserStoryData } from '../../model/defaultUserStoryData'
-import TimerView from '../Timer'
+import TimerView from './components/Timer'
 
 const TitleBar = () => {
   const { story, setStory } = useContext(GlobalUserStoryContext)
