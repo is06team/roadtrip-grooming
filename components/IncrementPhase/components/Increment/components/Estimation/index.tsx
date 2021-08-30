@@ -10,16 +10,18 @@ type Props = {
 }
 
 const copySlackPollToClipboard = (incrementName: string) => {
-  let pollText = '/poll "Estimation of ' + incrementName + '" '
-  pollText += '"for a complexity of 0.5" '
-  pollText += '"for a complexity of 1" '
-  pollText += '"for a complexity of 2" '
-  pollText += '"for a complexity of 3" '
-  pollText += '"for a complexity of 5" '
-  pollText += '"for a complexity of 8" '
-  pollText += '"for a complexity of 13" '
-  pollText += '"for a complexity of 21" '
-  pollText += ' limit 1'
+  const pollText =
+    '/poll "Estimation of ' +
+    incrementName +
+    '" ' +
+    '" for a complexity of 0.5" :pinching_hand: ' +
+    '" for a complexity of 1" :one: ' +
+    '" for a complexity of 2" :two: ' +
+    '" for a complexity of 3" :three: ' +
+    '" for a complexity of 5" :five: ' +
+    '" for a complexity of 8" :eight: ' +
+    '" for a complexity of 13" :cold_sweat: ' +
+    '" for a complexity of 21" :scream: limit 1'
   navigator.clipboard.writeText(pollText)
 }
 
