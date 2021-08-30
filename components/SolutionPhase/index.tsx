@@ -67,6 +67,9 @@ const SolutionPhase = () => {
     })
     setStory({ ...story, solutions: updatedSolutions })
   }
+  if (typeof story.solutions === 'undefined') {
+    story.solutions = [{ text: '', estimation: 0, selected: false }]
+  }
 
   return (
     <div className="phase-container">
