@@ -193,7 +193,9 @@ const IncrementView = ({
       >
         <option value="none">- Choisissez le type</option>
         {incrementTypes.map((type) => (
-          <option value={type.id}>{type.label}</option>
+          <option value={type.id} key={'increment_type_' + type.id}>
+            {type.label}
+          </option>
         ))}
       </select>
     )

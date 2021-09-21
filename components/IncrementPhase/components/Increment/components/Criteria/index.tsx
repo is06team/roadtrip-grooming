@@ -1,24 +1,43 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
-import { criteriaDictionary as Suggestions } from '../../../../../../config/criterias'
+import { criteriaDictionary, CriteriaType } from '../../../../../../config/criterias'
 import { Criteria } from '../../../../../../model/types'
 import styles from './styles.module.scss'
 
-type Props = {
-  id: string
-  title: string
-  gherkin: string
-  onChange: (criteria: Criteria) => void
-  onDelete: (criteriaId: string) => void
+const getTextCriteriaTypes: (text: string) => CriteriaType[] | undefined = (text) => {
+  const firstWord = (text.split(' ')[0] || '').trim()
+  const typeMapping: Record<string, CriteriaType[]> = {
+    given: ['given'],
+    when: ['when'],
+    then: ['then'],
+    and: ['given', 'then'],
+  }
+  return typeMapping[firstWord.toLowerCase()]
 }
 
 const getSuggestion = (text: string) => {
-  if (!text) return ''
-  const suggestions = Suggestions.filter((s) => {
-    return s.startsWith(text)
-  })
-  return suggestions[0] || text
+  const firstWord = (text.split(' ')[0] || '').trim()
+
+  const suggestions = criteriaDictionary
+    .filter((s) => {
+      const types = getTextCriteriaTypes(text)
+      if (typeof types === 'undefined') return false
+      return types.reduce((previous, type) => {
+        return previous || s.types.includes(type)
+      }, false)
+    })
+    .filter((s) => {
+      const expected = text
+        .split(' ')
+        .filter((value, index) => {
+          return index !== 0
+        })
+        .join(' ')
+      return s.text.startsWith(expected)
+    })
+
+  return suggestions.length > 0 ? firstWord + ' ' + suggestions[0].text : text
 }
 
 const getCurrentLine: (lines: string[], position: number) => number = (lines, position) => {
@@ -28,6 +47,14 @@ const getCurrentLine: (lines: string[], position: number) => number = (lines, po
     charCount += lines[++i].length + 1
   }
   return i
+}
+
+interface Props {
+  id: string
+  title: string
+  gherkin: string
+  onChange: (criteria: Criteria) => void
+  onDelete: (criteriaId: string) => void
 }
 
 const CriteriaView = ({ id, title, gherkin, onChange, onDelete }: Props) => {
@@ -42,11 +69,11 @@ const CriteriaView = ({ id, title, gherkin, onChange, onDelete }: Props) => {
   useEffect(() => setCriteriaLineCount(criteriaData.gherkin.split('\n').length), [])
 
   const handleKeyPressed = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.which !== 13) {
+    if (event.key !== 'Enter') {
       return
     }
-    setCriteriaData({ ...criteriaData, ['gherkin']: suggestion })
-    onChange({ ...criteriaData, ['gherkin']: suggestion })
+    setCriteriaData({ ...criteriaData, gherkin: suggestion })
+    onChange({ ...criteriaData, gherkin: suggestion })
   }
 
   const updateGherkin = (selectionStart: number, text: string) => {
@@ -61,13 +88,13 @@ const CriteriaView = ({ id, title, gherkin, onChange, onDelete }: Props) => {
         })
         .join('\n'),
     )
-    setCriteriaData({ ...criteriaData, ['gherkin']: text })
-    onChange({ ...criteriaData, ['gherkin']: text })
+    setCriteriaData({ ...criteriaData, gherkin: text })
+    onChange({ ...criteriaData, gherkin: text })
   }
 
   const updateTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCriteriaData({ ...criteriaData, ['title']: event.target.value })
-    onChange({ ...criteriaData, ['title']: event.target.value })
+    setCriteriaData({ ...criteriaData, title: event.target.value })
+    onChange({ ...criteriaData, title: event.target.value })
   }
 
   return (
